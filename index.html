@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neobas - Wisdom in Tech, Success in Business!</title>
-	    <link rel="icon" type="image/svg+xml" href="https://neobas.co/nlogo.png" id="favicon-svg">
+    <link rel="icon" type="image/svg+xml" href="https://neobas.co/nlogo.png" id="favicon-svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -25,19 +25,23 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+        
+        html { scroll-padding-top: 85px; }
 
         body {
-            font-family: var(--font-body); background-color: var(--bg-main);
-            color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased;
+            font-family: var(--font-body); 
+            background-color: var(--bg-main);
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
         }
 
         /* --- Navbar --- */
         .navbar {
-            position: fixed; top: 0; width: 100%; background: rgba(2, 6, 23, 0.85);
+            position: sticky; top: 0; width: 100%; background: rgba(2, 6, 23, 0.85);
             backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color);
             z-index: 1000; transition: all 0.3s ease;
         }
-
         .nav-container { max-width: 1200px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
         .logo { display: flex; align-items: center; text-decoration: none;}
         .logo img { height: 40px; width: auto; }
@@ -54,11 +58,17 @@
         .section-header p { color: var(--text-muted); font-size: 18px; max-width: 700px; margin: 0 auto; }
 
         /* --- Hero --- */
-        .hero { padding: 180px 20px 100px; text-align: center; position: relative; overflow: hidden; }
+        .hero { padding: 100px 20px 100px; text-align: center; position: relative; overflow: hidden; }
         .hero::before {
             content: ''; position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
             width: 800px; height: 800px; background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(2, 6, 23, 0) 70%);
             border-radius: 50%; z-index: -1;
+        }
+        .hero-badge {
+            display: inline-block; background: rgba(59, 130, 246, 0.1); color: #60a5fa; 
+            padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 700; 
+            letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; 
+            border: 1px solid rgba(59, 130, 246, 0.3);
         }
         .hero h1 { font-family: var(--font-heading); font-size: 56px; line-height: 1.2; margin-bottom: 20px; color: white; }
         .hero p { font-size: 22px; color: var(--text-muted); max-width: 850px; margin: 0 auto 40px; }
@@ -68,7 +78,7 @@
             text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); border: none; cursor: pointer;
         }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6); }
-        .btn-secondary { background-color: rgba(255, 255, 255, 0.05); color: white; border: 1px solid var(--border-color); padding: 16px 32px; border-radius: 8px; font-size: 18px; font-weight: 600; text-decoration: none; transition: background 0.3s; }
+        .btn-secondary { background-color: rgba(255, 255, 255, 0.05); color: white; border: 1px solid var(--border-color); padding: 16px 32px; border-radius: 8px; font-size: 18px; font-weight: 600; text-decoration: none; transition: background 0.3s; display: inline-flex; align-items: center; gap: 10px; }
         .btn-secondary:hover { background-color: rgba(255, 255, 255, 0.1); }
 
         /* --- NeoGenesys Program --- */
@@ -92,7 +102,7 @@
         .neo-svg-wrapper { width: 100%; height: 150px; display: flex; justify-content: center; align-items: center; margin-top: auto; }
         .neo-svg-wrapper svg { width: 100%; height: 100%; }
 
-        .demo-btn { display: inline-flex; align-items: center; gap: 10px; background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); padding: 15px 30px; border-radius: 8px; font-size: 18px; font-weight: 700; border: 1px solid rgba(59, 130, 246, 0.3); cursor: pointer; transition: all 0.3s; border:none;}
+        .demo-btn { display: inline-flex; align-items: center; gap: 10px; background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); padding: 15px 30px; border-radius: 8px; font-size: 18px; font-weight: 700; border: 1px solid rgba(59, 130, 246, 0.3); cursor: pointer; transition: all 0.3s; text-decoration: none; }
         .demo-btn:hover { background: rgba(59, 130, 246, 0.2); transform: translateY(-2px); }
         
         .rus-link { color: #94a3b8; font-size: 16px; font-style: italic; text-decoration: underline; transition: color 0.3s; display: inline-flex; align-items: center; gap: 8px;}
@@ -106,12 +116,12 @@
 
         /* --- Articles --- */
         .articles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; justify-content: center;}
-        .article-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 40px 30px; transition: transform 0.3s; display: flex; flex-direction: column; }
+        .article-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 40px 30px; transition: transform 0.3s; display: flex; flex-direction: column; cursor: pointer; }
         .article-card:hover { transform: translateY(-5px); border-color: var(--accent-blue); }
         .article-icon { font-size: 36px; color: var(--accent-blue); margin-bottom: 25px; }
         .article-card h3 { font-size: 24px; margin-bottom: 15px; font-family: var(--font-heading); color: white; }
         .article-card p { color: var(--text-muted); font-size: 16px; margin-bottom: 30px; flex-grow: 1; }
-        .read-more { background: none; border: none; color: var(--accent-emerald); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-family: inherit; cursor: pointer; padding: 0; transition: color 0.3s; }
+        .read-more { background: none; border: none; color: var(--accent-emerald); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-family: inherit; padding: 0; transition: color 0.3s; }
         .read-more:hover { color: #34d399; }
 
         /* --- Contact --- */
@@ -140,13 +150,11 @@
             transition: transform 0.3s ease; 
         }
         .modal-overlay.active .modal-content { transform: translateY(0); }
-        .modal-content.demo-mode { max-width: 1300px; max-height: 90vh; }
         
         .close-modal { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: none; color: white; font-size: 20px; cursor: pointer; z-index: 10; width: 44px; height: 44px; border-radius: 50%; display: flex; justify-content: center; align-items: center; transition: background 0.2s; }
         .close-modal:hover { background: rgba(255,255,255,0.2); }
         
         .modal-body { padding: 60px 50px; overflow-y: auto; color: var(--text-main); height: 100%; scrollbar-width: thin; scrollbar-color: var(--accent-blue) transparent; }
-        .demo-mode .modal-body { padding: 0; overflow: hidden; }
 
         /* Rich Article Styling */
         .modal-article h2 { font-family: var(--font-heading); font-size: 38px; color: white; margin-bottom: 25px; line-height: 1.3; }
@@ -156,27 +164,27 @@
         .modal-article li { color: var(--text-muted); font-size: 18px; margin-bottom: 10px; line-height: 1.6; }
         .modal-article blockquote { border-left: 4px solid var(--accent-emerald); padding-left: 20px; margin: 30px 0; font-style: italic; color: #cbd5e1; font-size: 20px; }
         
-        .iframe-container { width: 100%; height: 90vh; background: #0a192f; border-radius: 12px; overflow:hidden; }
-        .iframe-container iframe { width: 100%; height: 100%; border: none; }
-
         @media (max-width: 900px) {
             .about-grid, .neo-6-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 42px; }
             .nav-links { display: none; }
             .modal-body { padding: 40px 20px; }
             .modal-article h2 { font-size: 28px; }
-            .demo-mode .modal-body { padding: 0; }
-            .iframe-container { height: 90vh; }
         }
     </style>
 </head>
 <body>
 
+    <!-- ANNOUNCEMENT BAR FOR DIAGNOSTIC -->
+    <div style="background-color: #3b82f6; color: white; text-align: center; padding: 12px 20px; font-size: 14px; font-weight: 500; font-family: var(--font-body); z-index: 2000; position: relative;">
+        <strong>Attention Investors & VCs:</strong> Discover how we multiply portfolio valuation with the NeoGenesys™ 14-Day Diagnostic. <a href="diagnostic.html" style="color: white; text-decoration: underline; font-weight: 700; margin-left: 10px;">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="logo">
-                <img src="https://neobas.co/nlogo.png" alt="Neobas" " style="height: 40px; width: auto;">
+                <img src="https://neobas.co/nlogo.png" alt="Neobas" style="height: 40px; width: auto;">
             </a>
             <ul class="nav-links">
                 <li><a href="#program">NeoGenesys</a></li>
@@ -188,14 +196,12 @@
 
     <!-- Hero -->
     <section class="hero" id="home">
-        <div style="display: inline-block; background: rgba(59, 130, 246, 0.1); color: #60a5fa; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; border: 1px solid rgba(59, 130, 246, 0.3);">
-            Welcome to Neobas
-        </div>
+        <div class="hero-badge">Welcome to Neobas</div>
         <h1>Wisdom in Tech,<br><span style="color: #3b82f6;">Success in Business!</span></h1>
         <p>More than just an IT upgrade, we offer a strategic partnership for your digital journey. Neobas provides the consulting and architectural guidance needed to turn rigid legacy systems into future-ready, autonomous platforms.</p>
         <div class="hero-cta">
-            <a href="#program" class="btn-primary">Explore NeoGenesys</a>
-            <a href="#about" class="btn-secondary">Who We Are</a>
+            <a href="diagnostic.html" class="btn-primary">Enterprise Diagnostic</a>
+            <a href="demo.html" target="_blank" class="btn-secondary"><i class="fa-solid fa-desktop"></i> View Live Demo</a>
         </div>
     </section>
 
@@ -213,9 +219,8 @@
                 <strong>NeoGenesys™</strong> is our proprietary blueprint for enterprise digital transformation. We guide organizations through a meticulously structured journey: transitioning from high-latency, legacy-centric monoliths to highly scalable, autonomous digital ecosystems.
             </p>
 
-            <!-- Custom 6-Grid recreating the visual style of attached images -->
+            <!-- Custom 6-Grid -->
             <div class="neo-6-grid">
-                
                 <!-- Card 1 -->
                 <div class="neo-step-card">
                     <h4 class="orange">1. Concept Summary</h4>
@@ -357,31 +362,31 @@
 
             </div>
             
-      <div style="background: rgba(0,0,0,0.2); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 4px solid var(--accent-blue);">
+            <div style="background: rgba(0,0,0,0.2); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 4px solid var(--accent-blue);">
                 <h4 style="color: white; font-size: 20px; margin-bottom: 10px;">Who We Partner With</h4>
                 <p style="color: var(--text-muted); font-size: 16px; margin: 0; line-height: 1.7;">
                     If outdated monolithic systems and technical debt are slowing your growth, we are here to architect the way out. From <strong>banking</strong> and <strong>postal automation</strong> to <strong>municipal governance</strong> and <strong>AI integration</strong>, we understand your specific bottlenecks. Neobas re-engineers your digital core into a scalable, autonomous ecosystem.
                 </p>
             </div>
 
-            <!-- Armenan Presentation Link -->
-            <div style="text-align: center; margin-bottom: 30px;">
+            <!-- Armenian Presentation Link -->
+            <div style="text-align: center; margin-bottom: 20px;">
                 <a href="https://docs.google.com/presentation/d/141Txg9IKMnK0Heoq8rCZ4wcvTeVl2GVE81LtFOrUQa0/edit?usp=sharing" target="_blank" class="rus-link">
                     <i class="fa-solid fa-file-powerpoint" style="margin-right: 8px;"></i>Հայ: Ձեր հաջողության թվային ուղեցույցը Neobas-ի հետ
                 </a>
             </div>
-			
-			   <!-- Russian Presentation Link -->
-            <div style="text-align: center; margin-bottom: 30px;">
+            
+            <!-- Russian Presentation Link -->
+            <div style="text-align: center; margin-bottom: 40px;">
                 <a href="https://docs.google.com/presentation/d/1O3Dhr3M7Oxr7YDmLO7d46H2XZwT378z3QLWTRrMmUUA/edit?usp=sharing" target="_blank" class="rus-link">
                     <i class="fa-solid fa-file-powerpoint" style="margin-right: 8px;"></i>Рус: Цифровая программа для вашего успеха с Neobas
                 </a>
             </div>
 
-            <div style="text-align: center; padding-top: 30px; border-top: 1px solid var(--border-color);">
-             <a href="demo.html" target="_blank" class="demo-btn" style="text-decoration: none;">
-    <i class="fa-solid fa-desktop"></i> View NeoGenesys Demo Result
-</a>
+            <div style="text-align: center; padding-top: 40px; border-top: 1px solid var(--border-color);">
+                <a href="demo.html" target="_blank" class="demo-btn">
+                    <i class="fa-solid fa-desktop"></i> View NeoGenesys Demo Result
+                </a>
             </div>
         </div>
     </section>
@@ -403,7 +408,31 @@
         </div>
     </section>
 
+    <!-- Articles -->
+    <section id="articles">
+        <div class="section-header">
+            <h2>Insights & Articles</h2>
+            <p>Explore our latest thoughts on digital transformation, advanced architecture, and strategy.</p>
+        </div>
 
+        <div class="articles-grid">
+            <!-- Article 1 -->
+            <div class="article-card" onclick="openArticle('art1')">
+                <i class="fa-solid fa-network-wired article-icon"></i>
+                <h3>Microservices Architecture & DDD</h3>
+                <p>In today's evolving digital world, MSA and Domain-Driven Programming (DDD) are complementary approaches to create highly scalable and resilient systems.</p>
+                <button class="read-more">Read Full Article <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+            
+            <!-- Article 2 -->
+            <div class="article-card" onclick="openArticle('art2')">
+                <i class="fa-solid fa-chess-knight article-icon"></i>
+                <h3>Digital Strategy Principles</h3>
+                <p>A comprehensive understanding of an organization's capabilities. A digital strategy is an essential tool addressing goals, means, activities, and tactics.</p>
+                <button class="read-more">Read Full Article <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </section>
 
     <!-- Contact -->
     <section id="contact">
@@ -412,10 +441,7 @@
             <p style="font-size: 20px; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px;">
                 Unlock your digital success today. Partner with Neobas to build your autonomous future.
             </p>
-            
-<a href="https://calendly.com/bezhanyan/" target="_blank" class="btn-primary" style="font-size: 20px; padding: 20px 40px;">Contact Neobas 💡</a>
-            
-        
+            <a href="https://calendly.com/bezhanyan/" target="_blank" class="btn-primary" style="font-size: 20px; padding: 20px 40px;">Contact Neobas 💡</a>
         </div>
     </section>
 
@@ -425,7 +451,7 @@
     </footer>
 
     <!-- ========================================== -->
-    <!-- MODAL SYSTEM (For Articles & Demo Embed)   -->
+    <!-- MODAL SYSTEM (For Articles)                -->
     <!-- ========================================== -->
     <div class="modal-overlay" id="mainModal" onclick="closeModal(event)">
         <div class="modal-content" id="modalContentWrapper" onclick="event.stopPropagation()">
@@ -436,7 +462,8 @@
 
     <!-- Hidden Article Contents (Rich Content) -->
     <div style="display: none;">
-      <div id="content-art1" class="modal-article">
+        <!-- Article 1 Content -->
+        <div id="content-art1" class="modal-article">
             <h2>Escaping the Legacy Trap: Architecting the Autonomous Enterprise</h2>
             <p>Growth without a sustainable architectural strategy is a liability. Many enterprises reach a tipping point where their foundational software—once their greatest asset—becomes their heaviest anchor. To achieve true digital resilience, a fundamental shift from rigid monolithic thinking to a fluid, autonomous, platform-centric model is no longer optional; it is imperative.</p>
             
@@ -458,7 +485,7 @@
         </div>
 
         <!-- Article 2 Content -->
-<div id="content-art2" class="modal-article">
+        <div id="content-art2" class="modal-article">
             <h2>The Human Equation: Engineering a Culture of Sovereign Autonomy</h2>
             <p>A comprehensive digital strategy is not a technology roadmap; it is a mandate for corporate evolution. While architectural modernization forms the skeleton of transformation, it is the organizational culture that serves as the nervous system. At Neobas, we recognize that true market dominance is achieved only when high-performance engineering is inextricably linked with a profound shift in human collaboration and purpose.</p>
             
@@ -482,6 +509,38 @@
         </div>
     </div>
 
+    <script>
+        function openArticle(articleId) {
+            const modalWrapper = document.getElementById('modalContentWrapper');
+            const modalBody = document.getElementById('modalBody');
+            const modal = document.getElementById('mainModal');
+            
+            if(!modalWrapper || !modalBody || !modal) return;
 
+            const contentElement = document.getElementById('content-' + articleId);
+            if(contentElement) {
+                modalBody.innerHTML = contentElement.innerHTML;
+            }
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal(event) {
+            const modal = document.getElementById('mainModal');
+            const modalBody = document.getElementById('modalBody');
+            
+            if (!modal) return;
+
+            if (!event || event.target === modal || event.target.closest('.close-modal')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    if(!modal.classList.contains('active') && modalBody) {
+                        modalBody.innerHTML = '';
+                    }
+                }, 300);
+            }
+        }
+    </script>
 </body>
 </html>
