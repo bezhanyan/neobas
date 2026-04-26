@@ -50,16 +50,8 @@
             display: flex;
             flex-direction: column;
             min-height: 90vh;
+            overflow: hidden; /* Ensures child elements respect border radius */
         }
-
-        /* --- Announcement Bar --- */
-        .announcement-bar {
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-saryan-orange));
-            color: white; text-align: center; padding: 12px 20px; font-size: 14px; 
-            font-weight: 500; z-index: 2000; position: relative;
-            border-top-left-radius: 24px; border-top-right-radius: 24px;
-        }
-        .announcement-bar a { color: white; text-decoration: underline; font-weight: 700; margin-left: 10px; }
 
         /* --- Navbar --- */
         .navbar {
@@ -68,8 +60,11 @@
             z-index: 1000; transition: all 0.3s ease;
         }
         .nav-container { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; text-decoration: none;}
+        
+        .logo { display: flex; align-items: center; text-decoration: none; gap: 12px; }
         .logo img { height: 40px; width: auto; }
+        .logo-text { font-family: 'Neo Sans', 'Inter', sans-serif; font-size: 26px; font-weight: 700; color: white; letter-spacing: 0.5px; }
+        
         .nav-links { display: flex; gap: 30px; list-style: none; align-items: center;}
         .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 15px; transition: color 0.3s; text-transform: uppercase; letter-spacing: 1px; }
         .nav-links a:hover { color: var(--accent-saryan-yellow); }
@@ -162,7 +157,6 @@
         @media (max-width: 900px) {
             body { padding: 0; }
             .main-wrapper { border-radius: 0; }
-            .announcement-bar { border-radius: 0; }
             footer { border-radius: 0; }
             .about-grid, .neo-6-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 42px; }
@@ -176,16 +170,13 @@
 <body>
 
 <div class="main-wrapper">
-    <!-- ANNOUNCEMENT BAR FOR DIAGNOSTIC -->
-    <div class="announcement-bar">
-        <strong>For Enterprise Leaders & Investors:</strong> Discover how the NeoGenesys™ 14-Day Diagnostic multiplies company valuation. <a href="diagnostic.html">Learn More <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
 
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="logo">
                 <img src="https://neobas.co/nlogo.png" alt="Neobas" style="height: 40px; width: auto;">
+                <span class="logo-text">Neobas</span>
             </a>
             <ul class="nav-links">
                 <li><a href="#program">Methodology</a></li>
