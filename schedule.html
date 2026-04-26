@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule a Consultation - Neobas</title>
+    <link rel="icon" type="image/svg+xml" href="https://neobas.co/nlogo.png" id="favicon-svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Main Theme Variables */
+        :root {
+            --bg-main: #020617;
+            --bg-secondary: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #3b82f6;
+            --accent-emerald: #10b981;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --font-heading: 'Merriweather', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body); 
+            background-color: var(--bg-main);
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            position: sticky; top: 0; width: 100%; background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; text-decoration: none;}
+        .logo img { height: 40px; width: auto; }
+        .nav-back { color: var(--text-muted); font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: color 0.3s; text-transform: uppercase; letter-spacing: 1px; text-decoration: none;}
+        .nav-back:hover { color: var(--text-main); }
+
+        /* --- Page Header --- */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+        }
+        .page-header::before {
+            content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+            width: 600px; height: 600px; background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(2, 6, 23, 0) 70%);
+            border-radius: 50%; z-index: -1;
+        }
+        .page-header h1 { font-family: var(--font-heading); font-size: 46px; margin-bottom: 15px; color: white; line-height: 1.2;}
+        .page-header p { color: var(--text-muted); font-size: 20px; max-width: 600px; margin: 0 auto; }
+
+        /* --- Calendly Container --- */
+        .calendly-wrapper {
+            flex-grow: 1;
+            max-width: 1060px;
+            width: 100%;
+            margin: 0 auto 80px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center; padding: 30px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 15px; margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 36px; }
+            .calendly-wrapper { border-radius: 0; border-left: none; border-right: none; margin-bottom: 40px;}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-back"><i class="fa-solid fa-arrow-left"></i> Return to Main Site</a>
+            <a href="index.html" class="logo" style="margin-left: auto; margin-right: auto; transform: translateX(-50%);">
+                <img src="https://neobas.co/nlogo.png" alt="Neobas" style="height: 40px; width: auto;">
+            </a>
+            <div style="width: 130px;"></div> <!-- Spacer for centering -->
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="page-header">
+        <h1>Schedule Your Consultation</h1>
+        <p>Select a time below to discuss the NeoGenesys™ Diagnostic or your enterprise digital transformation strategy.</p>
+    </div>
+
+    <!-- Calendly Integration -->
+    <div class="calendly-wrapper">
+        <!-- Calendly inline widget begin -->
+        <!-- Note the URL parameters: background_color, text_color, and primary_color matching the Dark Theme -->
+        <div class="calendly-inline-widget" data-url="https://calendly.com/bezhanyan?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0f172a&text_color=f8fafc&primary_color=3b82f6" style="min-width:320px;height:700px;"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+        <!-- Calendly inline widget end -->
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Neobas. All rights reserved. Wisdom in Tech, Success in Business!</p>
+    </footer>
+
+</body>
+</html>
