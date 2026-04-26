@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Neobas - Enterprise Digital Transformation</title>
+    <link rel="icon" type="image/svg+xml" href="https://neobas.co/nlogo.png" id="favicon-svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Main Theme Variables */
+        :root {
+            --bg-main: #020617;
+            --bg-secondary: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #3b82f6;
+            --accent-emerald: #10b981;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --font-heading: 'Merriweather', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body); 
+            background-color: var(--bg-main);
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            position: sticky; top: 0; width: 100%; background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; text-decoration: none;}
+        .logo img { height: 40px; width: auto; }
+        .nav-back { color: var(--text-muted); font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: color 0.3s; text-transform: uppercase; letter-spacing: 1px; text-decoration: none;}
+        .nav-back:hover { color: var(--text-main); }
+
+        /* --- Page Header --- */
+        .page-header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-header::before {
+            content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+            width: 800px; height: 800px; background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(2, 6, 23, 0) 70%);
+            border-radius: 50%; z-index: -1;
+        }
+        .page-header h1 { font-family: var(--font-heading); font-size: 52px; margin-bottom: 20px; color: white; line-height: 1.2;}
+        .page-header p { color: var(--text-muted); font-size: 20px; max-width: 650px; margin: 0 auto; }
+
+        /* --- Contact Grid --- */
+        .contact-container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+            flex-grow: 1;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .contact-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 50px 30px;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15);
+        }
+
+        .contact-icon {
+            font-size: 40px;
+            color: var(--accent-blue);
+            margin-bottom: 25px;
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 20px;
+            border-radius: 50%;
+        }
+
+        .contact-card h3 {
+            color: white;
+            font-family: var(--font-heading);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .contact-card p, .contact-card a {
+            color: var(--text-muted);
+            font-size: 18px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-card a:hover {
+            color: white;
+        }
+
+        /* --- Schedule CTA Box --- */
+        .schedule-cta {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .schedule-cta::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .schedule-cta h2 {
+            font-family: var(--font-heading);
+            font-size: 36px;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .schedule-cta p {
+            color: var(--text-muted);
+            font-size: 20px;
+            margin-bottom: 35px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center; padding: 30px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 15px; margin-top: auto;
+        }
+
+        @media (max-width: 900px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            .page-header h1 { font-size: 40px; }
+            .schedule-cta { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-back"><i class="fa-solid fa-arrow-left"></i> Return to Main Site</a>
+            <a href="index.html" class="logo" style="margin-left: auto; margin-right: auto; transform: translateX(-50%);">
+                <img src="https://neobas.co/nlogo.png" alt="Neobas" style="height: 40px; width: auto;">
+            </a>
+            <div style="width: 130px;"></div> <!-- Spacer for centering -->
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="page-header">
+        <h1>Get in Touch</h1>
+        <p>We are ready to architect your digital future. Reach out to us directly or schedule a dedicated strategic consultation.</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="contact-container">
+        
+        <!-- Contact Cards -->
+        <div class="contact-grid">
+            <!-- Email -->
+            <div class="contact-card">
+                <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                <h3>Email Us</h3>
+                <a href="mailto:narek@neobas.co">narek@neobas.co</a>
+            </div>
+            
+            <!-- Phone -->
+            <div class="contact-card">
+                <div class="contact-icon" style="color: var(--accent-emerald); background: rgba(16, 185, 129, 0.1);"><i class="fa-solid fa-phone"></i></div>
+                <h3>Call Us</h3>
+                <a href="tel:+37499231105">+374 99 23 11 05</a>
+            </div>
+            
+            <!-- Location -->
+            <div class="contact-card">
+                <div class="contact-icon" style="color: var(--accent-amber); background: rgba(245, 158, 11, 0.1);"><i class="fa-solid fa-location-dot"></i></div>
+                <h3>Visit Us</h3>
+                <p>Yerevan, Armenia</p>
+            </div>
+        </div>
+
+        <!-- Schedule Call to Action -->
+        <div class="schedule-cta">
+            <h2>Prefer a structured discussion?</h2>
+            <p>Book a dedicated time slot for a diagnostic discovery call or a strategic planning session with our Chief Architect.</p>
+            <a href="schedule.html" class="btn-primary">
+                Schedule a Consultation <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Neobas. All rights reserved. Wisdom in Tech, Success in Business!</p>
+    </footer>
+
+</body>
+</html>
