@@ -5,66 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neobas - Wisdom in Tech, Success in Business!</title>
     <link rel="icon" type="image/svg+xml" href="https://neobas.co/nlogo.png" id="favicon-svg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Main Theme Variables */
+        /* Main Theme Variables - Boxed & Saryan Accents */
         :root {
-            --bg-main: #020617;
-            --bg-secondary: #0f172a;
+            --bg-page: #e2e8f0; /* Light edges */
+            --bg-main: #0b1120; /* Deep premium dark center */
+            --bg-secondary: #162032;
             --bg-card: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            
+            /* Saryan Inspired Accents */
             --accent-blue: #3b82f6;
             --accent-emerald: #10b981;
-            --accent-purple: #8b5cf6;
-            --accent-amber: #f59e0b;
-            --border-color: rgba(255, 255, 255, 0.1);
+            --accent-saryan-orange: #E85D04;
+            --accent-saryan-yellow: #F59E0B;
+            
+            --border-color: rgba(255, 255, 255, 0.08);
             --font-heading: 'Merriweather', serif;
             --font-body: 'Inter', sans-serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-        
-        /* Ensures anchors don't hide behind the sticky navbar */
-        html { scroll-padding-top: 85px; }
 
         body {
             font-family: var(--font-body); 
-            background-color: var(--bg-main);
+            background-color: var(--bg-page); /* The light edges */
             color: var(--text-main); 
             line-height: 1.6; 
             -webkit-font-smoothing: antialiased;
+            padding: 40px 20px; /* Space around the main wrapper */
         }
+
+        /* --- The Boxed Wrapper --- */
+        .main-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            background-color: var(--bg-main);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 90vh;
+        }
+
+        /* --- Announcement Bar --- */
+        .announcement-bar {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-saryan-orange));
+            color: white; text-align: center; padding: 12px 20px; font-size: 14px; 
+            font-weight: 500; z-index: 2000; position: relative;
+            border-top-left-radius: 24px; border-top-right-radius: 24px;
+        }
+        .announcement-bar a { color: white; text-decoration: underline; font-weight: 700; margin-left: 10px; }
 
         /* --- Navbar --- */
         .navbar {
-            position: sticky; top: 0; width: 100%; background: rgba(2, 6, 23, 0.85);
-            backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color);
+            position: sticky; top: 0; width: 100%; background: rgba(11, 17, 32, 0.85);
+            backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color);
             z-index: 1000; transition: all 0.3s ease;
         }
-        .nav-container { max-width: 1200px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .nav-container { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
         .logo { display: flex; align-items: center; text-decoration: none;}
         .logo img { height: 40px; width: auto; }
         .nav-links { display: flex; gap: 30px; list-style: none; align-items: center;}
         .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 15px; transition: color 0.3s; text-transform: uppercase; letter-spacing: 1px; }
-        .nav-links a:hover { color: var(--accent-emerald); }
+        .nav-links a:hover { color: var(--accent-saryan-yellow); }
         .nav-btn { background: var(--accent-blue); color: white !important; padding: 10px 20px; border-radius: 6px; font-weight: 600; transition: background 0.3s; }
         .nav-btn:hover { background: #2563eb !important; }
 
         /* --- Layout Elements --- */
-        section { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
+        section { padding: 100px 40px; width: 100%; margin: 0 auto; }
         .section-header { text-align: center; margin-bottom: 60px; }
         .section-header h2 { font-family: var(--font-heading); font-size: 40px; margin-bottom: 15px; color: white; }
         .section-header p { color: var(--text-muted); font-size: 18px; max-width: 700px; margin: 0 auto; }
 
-        /* --- Hero --- */
-        .hero { padding: 100px 20px 100px; text-align: center; position: relative; overflow: hidden; }
+        /* --- Hero (With Saryan Glow) --- */
+        .hero { padding: 120px 40px 100px; text-align: center; position: relative; overflow: hidden; }
         .hero::before {
-            content: ''; position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
-            width: 800px; height: 800px; background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(2, 6, 23, 0) 70%);
-            border-radius: 50%; z-index: -1;
+            content: ''; position: absolute; top: -30%; left: 20%;
+            width: 600px; height: 600px; background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            border-radius: 50%; z-index: 0;
         }
+        .hero::after {
+            content: ''; position: absolute; top: -10%; right: 10%;
+            width: 500px; height: 500px; background: radial-gradient(circle, rgba(232, 93, 4, 0.1) 0%, transparent 70%);
+            border-radius: 50%; z-index: 0;
+        }
+        .hero > * { position: relative; z-index: 1; }
+        
         .hero-badge {
             display: inline-block; background: rgba(59, 130, 246, 0.1); color: #60a5fa; 
             padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 700; 
@@ -74,6 +105,7 @@
         .hero h1 { font-family: var(--font-heading); font-size: 56px; line-height: 1.2; margin-bottom: 20px; color: white; }
         .hero p { font-size: 22px; color: var(--text-muted); max-width: 850px; margin: 0 auto 40px; }
         .hero-cta { display: inline-flex; gap: 20px; justify-content: center; }
+        
         .btn-primary {
             background-color: var(--accent-blue); color: white; padding: 16px 32px; border-radius: 8px; font-size: 18px; font-weight: 600;
             text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); border: none; cursor: pointer;
@@ -83,27 +115,32 @@
         .btn-secondary:hover { background-color: rgba(255, 255, 255, 0.1); }
 
         /* --- NeoGenesys Program --- */
-        .service-box { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 60px; margin-bottom: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-        .service-tag { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 20px; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .service-box { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 60px; margin-bottom: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .service-tag { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 20px; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; background: rgba(232, 93, 4, 0.1); color: var(--accent-saryan-orange); border: 1px solid rgba(232, 93, 4, 0.3); }
         .service-box h3 { font-family: var(--font-heading); font-size: 36px; margin-bottom: 20px; color: white; line-height: 1.3;}
         .service-desc { font-size: 18px; color: var(--text-muted); margin-bottom: 50px; max-width: 900px;}
         
         .neo-6-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 50px; }
-        .neo-step-card { background-color: #121826; border: 1px solid #1e293b; border-radius: 12px; padding: 30px 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: column; }
-        .neo-step-card:hover { transform: translateY(-5px); border-color: #3b82f6; }
-        .neo-step-card h4 { font-family: var(--font-heading); font-size: 20px; margin-bottom: 15px; font-weight: 700; }
-        .neo-step-card h4.orange { color: #f59e0b; }
-        .neo-step-card h4.blue { color: #3b82f6; }
-        .neo-step-card h4.green { color: #10b981; }
-        .neo-step-card p { color: #e2e8f0; font-size: 15px; line-height: 1.6; margin-bottom: 10px; font-family: var(--font-body); }
-        .sub-tag { color: #f59e0b; font-size: 14px; font-weight: 500; margin-bottom: 25px; display: block; }
-        .blue-card .sub-tag { color: #3b82f6; }
-        .green-card .sub-tag { color: #10b981; }
+        .neo-step-card { background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 12px; padding: 30px 25px; transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: column; position: relative; overflow: hidden;}
+        
+        /* Colored top borders for Saryan feel */
+        .neo-step-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+        .card-c1::before { background-color: var(--accent-saryan-orange); }
+        .card-c2::before { background-color: var(--accent-emerald); }
+        .card-c3::before { background-color: var(--accent-saryan-yellow); }
+        .card-c4::before { background-color: var(--accent-blue); }
+        .card-c5::before { background-color: #8b5cf6; }
+        .card-c6::before { background-color: var(--accent-saryan-orange); }
+
+        .neo-step-card:hover { transform: translateY(-5px); border-color: var(--text-muted); }
+        .neo-step-card h4 { font-family: var(--font-heading); font-size: 20px; margin-bottom: 15px; font-weight: 700; color: white;}
+        .neo-step-card p { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 10px; font-family: var(--font-body); }
+        .sub-tag { color: var(--text-muted); font-size: 14px; font-weight: 500; margin-bottom: 25px; display: block; font-family: monospace;}
         
         .neo-svg-wrapper { width: 100%; height: 150px; display: flex; justify-content: center; align-items: center; margin-top: auto; }
         .neo-svg-wrapper svg { width: 100%; height: 100%; }
 
-        .demo-btn { display: inline-flex; align-items: center; gap: 10px; background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); padding: 15px 30px; border-radius: 8px; font-size: 18px; font-weight: 700; border: 1px solid rgba(59, 130, 246, 0.3); cursor: pointer; transition: all 0.3s; text-decoration: none;}
+        .demo-btn { display: inline-flex; align-items: center; gap: 10px; background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); padding: 15px 30px; border-radius: 8px; font-size: 18px; font-weight: 700; border: 1px solid rgba(59, 130, 246, 0.3); cursor: pointer; transition: all 0.3s; text-decoration: none; }
         .demo-btn:hover { background: rgba(59, 130, 246, 0.2); transform: translateY(-2px); }
         
         .rus-link { color: #94a3b8; font-size: 16px; font-style: italic; text-decoration: underline; transition: color 0.3s; display: inline-flex; align-items: center; gap: 8px;}
@@ -116,20 +153,29 @@
         .about-image { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px; position: relative; text-align: center;}
 
         /* --- Contact --- */
-        .contact-section { background: var(--bg-secondary); border-radius: 20px; padding: 80px 40px; text-align: center; border: 1px solid var(--border-color); margin-bottom: 40px; }
+        .contact-section { background: var(--bg-secondary); border-radius: 20px; padding: 80px 40px; text-align: center; border: 1px solid var(--border-color); }
+
+        /* --- Footer --- */
+        footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 15px; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px;}
 
         @media (max-width: 900px) {
+            body { padding: 0; }
+            .main-wrapper { border-radius: 0; }
+            .announcement-bar { border-radius: 0; }
+            footer { border-radius: 0; }
             .about-grid, .neo-6-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 42px; }
             .nav-links { display: none; }
+            section { padding: 60px 20px; }
         }
     </style>
 </head>
 <body>
 
+<div class="main-wrapper">
     <!-- ANNOUNCEMENT BAR FOR DIAGNOSTIC -->
-    <div style="background-color: #3b82f6; color: white; text-align: center; padding: 12px 20px; font-size: 14px; font-weight: 500; font-family: var(--font-body); z-index: 2000; position: relative;">
-        <strong>For Enterprise Leaders & Investors:</strong> Discover how the NeoGenesys™ 14-Day Diagnostic multiplies company valuation. <a href="diagnostic.html" style="color: white; text-decoration: underline; font-weight: 700; margin-left: 10px;">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+    <div class="announcement-bar">
+        <strong>For Enterprise Leaders & Investors:</strong> Discover how the NeoGenesys™ 14-Day Diagnostic multiplies company valuation. <a href="diagnostic.html">Learn More <i class="fa-solid fa-arrow-right"></i></a>
     </div>
 
     <!-- Navbar -->
@@ -141,7 +187,7 @@
             <ul class="nav-links">
                 <li><a href="#program">Methodology</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="contact.html" target="_blank" class="nav-btn">Contact Us</a></li>
+                <li><a href="contact.html" class="nav-btn">Contact Us</a></li>
             </ul>
         </div>
     </nav>
@@ -153,7 +199,7 @@
         <p>More than just an IT upgrade, we offer a strategic partnership for your digital journey. Neobas provides the consulting and architectural guidance needed to turn rigid legacy systems into future-ready, autonomous platforms.</p>
         <div class="hero-cta">
             <a href="#program" class="btn-primary">Explore NeoGenesys</a>
-            <a href="diagnostic.html" class="btn-secondary"><i class="fa-solid fa-bolt"></i> Enterprise Diagnostic</a>
+            <a href="diagnostic.html" class="btn-secondary"><i class="fa-solid fa-bolt" style="color: #F59E0B;"></i> Enterprise Diagnostic</a>
         </div>
     </section>
 
@@ -171,12 +217,12 @@
                 <strong>NeoGenesys™</strong> is our proprietary blueprint for enterprise digital transformation. We guide organizations through a meticulously structured journey: transitioning from high-latency, legacy-centric monoliths to highly scalable, autonomous digital ecosystems.
             </p>
 
-            <!-- Custom 6-Grid -->
+            <!-- Custom 6-Grid with Saryan Colored Borders -->
             <div class="neo-6-grid">
                 
                 <!-- Card 1 -->
-                <div class="neo-step-card">
-                    <h4 class="orange">1. Concept Summary</h4>
+                <div class="neo-step-card card-c1">
+                    <h4 style="color: var(--accent-saryan-orange);">1. Concept Summary</h4>
                     <p>Formulation of a comprehensive project mandate, delivering an executive mindmap of the 'Why' and 'How' behind your digital transformation.</p>
                     <span class="sub-tag">{Mindmap of Why and How}</span>
                     <div class="neo-svg-wrapper">
@@ -201,8 +247,8 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="neo-step-card green-card">
-                    <h4 class="green">2. Design & Architecture</h4>
+                <div class="neo-step-card card-c2">
+                    <h4 style="color: var(--accent-emerald);">2. Design & Architecture</h4>
                     <p>Transitioning from monolithic models to Platform-centric designs. We implement Domain-Driven Design (DDD) to create manageable domains.</p>
                     <span class="sub-tag">{Domain Driven Design}</span>
                     <div class="neo-svg-wrapper">
@@ -219,10 +265,10 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="neo-step-card">
-                    <h4 style="color: white;">3. Microservices Library</h4>
+                <div class="neo-step-card card-c3">
+                    <h4 style="color: var(--accent-saryan-yellow);">3. Microservices Library</h4>
                     <p>Designing a strict technical architecture that maps out isolated, scalable microservices across Identity, Operations, and Financial ecosystems.</p>
-                    <span class="sub-tag" style="color: #94a3b8;">{Technology Landscape Analysis}</span>
+                    <span class="sub-tag">{Technology Landscape Analysis}</span>
                     <div class="neo-svg-wrapper">
                         <svg viewBox="0 0 200 120">
                             <rect x="50" y="45" width="100" height="30" rx="15" fill="#8b5cf6" stroke="#fff" stroke-width="1" opacity="0.9"/>
@@ -244,8 +290,8 @@
                 </div>
 
                 <!-- Card 4 -->
-                <div class="neo-step-card blue-card">
-                    <h4 class="blue">4. SDLC Management</h4>
+                <div class="neo-step-card card-c4">
+                    <h4 style="color: var(--accent-blue);">4. SDLC Management</h4>
                     <p>Modernization of the software production pipeline, integrating automated CI/CD, Containerization, and IaC for zero-downtime.</p>
                     <span class="sub-tag">{Time To Market}</span>
                     <div class="neo-svg-wrapper">
@@ -264,8 +310,8 @@
                 </div>
 
                 <!-- Card 5 -->
-                <div class="neo-step-card blue-card">
-                    <h4 class="blue">5. Team and Culture</h4>
+                <div class="neo-step-card card-c5">
+                    <h4 style="color: #8b5cf6;">5. Team and Culture</h4>
                     <p>Restructuring IT hierarchies into cross-functional Agile Squads and Chapters, driving a culture of absolute Product Ownership.</p>
                     <span class="sub-tag">{Chapters, Squads, Areas}</span>
                     <div class="neo-svg-wrapper">
@@ -291,8 +337,8 @@
                 </div>
 
                 <!-- Card 6 -->
-                <div class="neo-step-card blue-card">
-                    <h4 class="blue">6. Evolution and Roadmap</h4>
+                <div class="neo-step-card card-c6">
+                    <h4 style="color: var(--accent-saryan-orange);">6. Evolution and Roadmap</h4>
                     <p>A structured, phased strategy outlining the exact timeline for monolith decomposition, cloud migration, and intelligence integration.</p>
                     <span class="sub-tag">{Maturity Roadmap}</span>
                     <div class="neo-svg-wrapper">
@@ -315,7 +361,7 @@
 
             </div>
             
-            <div style="background: rgba(0,0,0,0.2); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 4px solid var(--accent-blue);">
+            <div style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 4px solid var(--accent-saryan-yellow);">
                 <h4 style="color: white; font-size: 20px; margin-bottom: 10px;">Who We Partner With</h4>
                 <p style="color: var(--text-muted); font-size: 16px; margin: 0; line-height: 1.7;">
                     If outdated monolithic systems and technical debt are slowing your growth, we are here to architect the way out. From <strong>banking</strong> and <strong>postal automation</strong> to <strong>municipal governance</strong> and <strong>AI integration</strong>, we understand your specific bottlenecks. Neobas re-engineers your digital core into a scalable, autonomous ecosystem.
@@ -325,14 +371,14 @@
             <!-- Armenian Presentation Link -->
             <div style="text-align: center; margin-bottom: 20px;">
                 <a href="https://docs.google.com/presentation/d/141Txg9IKMnK0Heoq8rCZ4wcvTeVl2GVE81LtFOrUQa0/edit?usp=sharing" target="_blank" class="rus-link">
-                    <i class="fa-solid fa-file-powerpoint" style="margin-right: 8px;"></i>Հայ: Ձեր հաջողության թվային ուղեցույցը Neobas-ի հետ
+                    <i class="fa-solid fa-file-powerpoint" style="color: var(--accent-saryan-orange); margin-right: 8px;"></i>Հայ: Ձեր հաջողության թվային ուղեցույցը Neobas-ի հետ
                 </a>
             </div>
             
             <!-- Russian Presentation Link -->
             <div style="text-align: center; margin-bottom: 40px;">
                 <a href="https://docs.google.com/presentation/d/1O3Dhr3M7Oxr7YDmLO7d46H2XZwT378z3QLWTRrMmUUA/edit?usp=sharing" target="_blank" class="rus-link">
-                    <i class="fa-solid fa-file-powerpoint" style="margin-right: 8px;"></i>Рус: Цифровая программа для вашего успеха с Neobas
+                    <i class="fa-solid fa-file-powerpoint" style="color: var(--accent-saryan-orange); margin-right: 8px;"></i>Рус: Цифровая программа для вашего успеха с Neobas
                 </a>
             </div>
 
@@ -341,7 +387,7 @@
                 <h3 style="color: white; font-family: var(--font-heading); font-size: 32px; margin-bottom: 25px;">Ready to uncover your technical debt?</h3>
                 <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                     <a href="diagnostic.html" class="btn-primary" style="display: inline-flex; align-items: center; gap: 10px; font-size: 18px; padding: 16px 32px;">
-                        <i class="fa-solid fa-bolt"></i> Book a 14-Day Diagnostic
+                        <i class="fa-solid fa-bolt" style="color: #F59E0B;"></i> Book a 14-Day Diagnostic
                     </a>
                     <a href="demo.html" target="_blank" class="demo-btn" style="text-decoration: none;">
                         <i class="fa-solid fa-desktop"></i> View Full Demo Registry
@@ -375,14 +421,16 @@
             <p style="font-size: 20px; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px;">
                 Unlock your digital success today. Partner with Neobas to build your autonomous future.
             </p>
-            <a href="contact.html" target="_blank" class="btn-primary" style="font-size: 20px; padding: 20px 40px;">Contact Neobas 💡</a>
+            <a href="contact.html" class="btn-primary" style="font-size: 20px; padding: 20px 40px;">Contact Neobas 💡</a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer style="text-align: center; padding: 30px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 15px;">
+    <footer>
         <p>&copy; 2026 Neobas. All rights reserved. Wisdom in Tech, Success in Business!</p>
     </footer>
+
+</div> <!-- End of Boxed Wrapper -->
 
 </body>
 </html>
