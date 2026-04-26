@@ -10,8 +10,8 @@
     <style>
         /* Main Theme Variables - Boxed & Saryan Accents */
         :root {
-            --bg-page: #e2e8f0; 
-            --bg-main: #0b1120; 
+            --bg-page: #ffffff; /* White edges */
+            --bg-main: #0b1120; /* Deep premium dark center */
             --bg-secondary: #162032;
             --bg-card: #1e293b;
             --text-main: #f8fafc;
@@ -31,13 +31,40 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
 
+        /* Ensures anchors don't hide behind the sticky navbar */
+        html { scroll-padding-top: 85px; }
+
         body {
             font-family: var(--font-body); 
-            background-color: var(--bg-main); 
+            background-color: var(--bg-page); /* White edges */
             color: var(--text-main); 
             line-height: 1.6; 
             -webkit-font-smoothing: antialiased;
+            padding: 0; /* Removed top/bottom padding */
         }
+
+        /* --- The Boxed Wrapper --- */
+        .main-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            background-color: var(--bg-main);
+            /* Removed border-radius */
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255,255,255,0.05);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow: hidden; 
+        }
+
+        /* --- Announcement Bar --- */
+        .announcement-bar {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-saryan-orange));
+            color: white; text-align: center; padding: 12px 20px; font-size: 14px; 
+            font-weight: 500; z-index: 2000; position: relative;
+            /* Removed border-radius */
+        }
+        .announcement-bar a { color: white; text-decoration: underline; font-weight: 700; margin-left: 10px; }
 
         /* --- Navbar --- */
         .navbar {
@@ -46,8 +73,11 @@
             z-index: 1000; transition: all 0.3s ease;
         }
         .nav-container { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; text-decoration: none;}
+        
+        .logo { display: flex; align-items: center; text-decoration: none; gap: 12px; }
         .logo img { height: 40px; width: auto; }
+        .logo-text { font-family: 'Neo Sans', 'Inter', sans-serif; font-size: 26px; font-weight: 700; color: white; letter-spacing: 0.5px; }
+        
         .nav-links { display: flex; gap: 30px; list-style: none; align-items: center;}
         .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 15px; transition: color 0.3s; text-transform: uppercase; letter-spacing: 1px; }
         .nav-links a:hover { color: var(--text-main); }
@@ -76,13 +106,15 @@
         }
         .hero h1 { font-family: var(--font-heading); font-size: 64px; line-height: 1.15; margin-bottom: 25px; color: white; letter-spacing: -1px;}
         .hero p { font-size: 20px; color: #cbd5e1; max-width: 800px; margin: 0 auto 40px; line-height: 1.7; font-weight: 400; }
-        .hero-cta { display: inline-flex; gap: 20px; justify-content: center; margin-top: 10px; }
+        .hero-cta { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 10px; width: 100%; }
+        
         .btn-primary {
             background-color: var(--accent-blue); color: white; padding: 16px 32px; border-radius: 8px; font-size: 18px; font-weight: 600;
             text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); border: none; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center; text-align: center;
         }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6); }
-        .btn-secondary { background-color: rgba(255, 255, 255, 0.05); color: white; border: 1px solid var(--border-color); padding: 16px 32px; border-radius: 8px; font-size: 18px; font-weight: 600; text-decoration: none; transition: background 0.3s; display: inline-flex; align-items: center; gap: 10px; }
+        .btn-secondary { background-color: rgba(255, 255, 255, 0.05); color: white; border: 1px solid var(--border-color); padding: 16px 32px; border-radius: 8px; font-size: 18px; font-weight: 600; text-decoration: none; transition: background 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-align: center; }
         .btn-secondary:hover { background-color: rgba(255, 255, 255, 0.1); }
 
         /* --- DUAL PILLARS SECTION (NEW) --- */
@@ -168,6 +200,8 @@
         @media (max-width: 900px) {
             .dual-pillars, .about-grid, .neo-6-grid, .hydro-features { grid-template-columns: 1fr; }
             .hero h1 { font-size: 42px; }
+            .hero-cta { flex-direction: column; width: 100%; gap: 15px; }
+            .hero-cta a { width: 100%; }
             .nav-links { display: none; }
             section { padding: 60px 20px; }
         }
@@ -175,11 +209,15 @@
 </head>
 <body>
 
+<div class="main-wrapper">
+
+
+
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="logo">
-                <img src="https://neobas.co/nlogo.png" alt="Neobas" style="height: 40px; width: auto;">
+                <img src="https://neobas.co/nlogo.png" alt="Neobas Logo" style="height: 40px; width: auto;">
             </a>
             <ul class="nav-links">
                 <li><a href="#neogenesys">NeoGenesys</a></li>
@@ -236,6 +274,7 @@
 
             <!-- Custom 6-Grid with Saryan Colored Borders -->
             <div class="neo-6-grid">
+                
                 <!-- Card 1 -->
                 <div class="neo-step-card card-c1">
                     <h4 style="color: var(--accent-saryan-orange);">1. Concept Summary</h4>
@@ -374,6 +413,7 @@
                         </svg>
                     </div>
                 </div>
+
             </div>
             
             <div style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 4px solid var(--accent-saryan-yellow);">
@@ -477,6 +517,8 @@
     <footer>
         <p>&copy; 2026 Neobas. All rights reserved. Wisdom in Tech, Success in Business!</p>
     </footer>
+
+</div> <!-- End of Boxed Wrapper -->
 
 </body>
 </html>
