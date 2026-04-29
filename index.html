@@ -10,8 +10,8 @@
     <style>
         /* Main Theme Variables - Boxed & Saryan Accents */
         :root {
-            --bg-page: #e2e8f0; 
-            --bg-main: #0b1120; 
+            --bg-page: #ffffff; /* White edges */
+            --bg-main: #0b1120; /* Deep premium dark center */
             --bg-secondary: #162032;
             --bg-card: #1e293b;
             --text-main: #f8fafc;
@@ -31,13 +31,41 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
 
+        /* Ensures anchors don't hide behind the sticky navbar */
+        html { scroll-padding-top: 85px; }
+
         body {
             font-family: var(--font-body); 
-            background-color: var(--bg-main); 
+            background-color: var(--bg-page); /* White edges */
             color: var(--text-main); 
             line-height: 1.6; 
             -webkit-font-smoothing: antialiased;
+            padding: 0; /* Removed top/bottom padding */
+            overflow-x: hidden;
         }
+
+        /* --- The Boxed Wrapper --- */
+        .main-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            background-color: var(--bg-main);
+            /* Removed border-radius */
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255,255,255,0.05);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow: hidden; 
+        }
+
+        /* --- Announcement Bar --- */
+        .announcement-bar {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-saryan-orange));
+            color: white; text-align: center; padding: 12px 20px; font-size: 14px; 
+            font-weight: 500; z-index: 2000; position: relative;
+            /* Removed border-radius */
+        }
+        .announcement-bar a { color: white; text-decoration: underline; font-weight: 700; margin-left: 10px; }
 
         /* --- Navbar --- */
         .navbar {
@@ -45,9 +73,12 @@
             backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color);
             z-index: 1000; transition: all 0.3s ease;
         }
-        .nav-container { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; max-width: 1280px; margin: 0 auto;}
-        .logo { display: flex; align-items: center; text-decoration: none;}
+        .nav-container { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo { display: flex; align-items: center; text-decoration: none; gap: 12px; }
         .logo img { height: 40px; width: auto; }
+        .logo-text { font-family: 'Neo Sans', 'Inter', sans-serif; font-size: 26px; font-weight: 700; color: white; letter-spacing: 0.5px; }
+        
         .nav-links { display: flex; gap: 30px; list-style: none; align-items: center;}
         .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 15px; transition: color 0.3s; text-transform: uppercase; letter-spacing: 1px; }
         .nav-links a:hover { color: var(--text-main); }
@@ -55,13 +86,13 @@
         .nav-btn:hover { background: #2563eb !important; }
 
         /* --- Layout Elements --- */
-        section { padding: 100px 40px; width: 100%; max-width: 1280px; margin: 0 auto; }
+        section { padding: 100px 40px; width: 100%; margin: 0 auto; }
         .section-header { text-align: center; margin-bottom: 60px; }
         .section-header h2 { font-family: var(--font-heading); font-size: 40px; margin-bottom: 15px; color: white; }
         .section-header p { color: var(--text-muted); font-size: 18px; max-width: 700px; margin: 0 auto; }
 
         /* --- Hero --- */
-        .hero { padding: 120px 20px 100px; text-align: center; position: relative; overflow: hidden; max-width: 100%; }
+        .hero { padding: 120px 20px 100px; text-align: center; position: relative; overflow: hidden; }
         .hero::before {
             content: ''; position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
             width: 800px; height: 800px; background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(2, 6, 23, 0) 70%);
@@ -77,15 +108,17 @@
         .hero h1 { font-family: var(--font-heading); font-size: 64px; line-height: 1.15; margin-bottom: 25px; color: white; letter-spacing: -1px;}
         .hero p { font-size: 20px; color: #cbd5e1; max-width: 800px; margin: 0 auto 40px; line-height: 1.7; font-weight: 400; }
         .hero-cta { display: inline-flex; gap: 20px; justify-content: center; margin-top: 10px; }
+        
         .btn-primary {
             background-color: var(--accent-blue); color: white; padding: 16px 32px; border-radius: 8px; font-size: 18px; font-weight: 600;
             text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); border: none; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center; text-align: center;
         }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6); }
-        .btn-secondary { background-color: rgba(255, 255, 255, 0.05); color: white; border: 1px solid var(--border-color); padding: 16px 32px; border-radius: 8px; font-size: 18px; font-weight: 600; text-decoration: none; transition: background 0.3s; display: inline-flex; align-items: center; gap: 10px; }
+        .btn-secondary { background-color: rgba(255, 255, 255, 0.05); color: white; border: 1px solid var(--border-color); padding: 16px 32px; border-radius: 8px; font-size: 18px; font-weight: 600; text-decoration: none; transition: background 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
         .btn-secondary:hover { background-color: rgba(255, 255, 255, 0.1); }
 
-        /* --- DUAL PILLARS SECTION --- */
+        /* --- DUAL PILLARS SECTION (NEW) --- */
         .dual-pillars {
             display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 60px;
         }
@@ -141,18 +174,18 @@
         .neo-svg-wrapper { width: 100%; height: 150px; display: flex; justify-content: center; align-items: center; margin-top: auto; }
         .neo-svg-wrapper svg { width: 100%; height: 100%; }
 
-        .demo-btn { display: inline-flex; align-items: center; gap: 10px; background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); padding: 15px 30px; border-radius: 8px; font-size: 18px; font-weight: 700; border: 1px solid rgba(59, 130, 246, 0.3); cursor: pointer; transition: all 0.3s; text-decoration: none; }
+        .demo-btn { display: inline-flex; align-items: center; gap: 10px; background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); padding: 15px 30px; border-radius: 8px; font-size: 18px; font-weight: 700; border: 1px solid rgba(59, 130, 246, 0.3); cursor: pointer; transition: all 0.3s; text-decoration: none; justify-content: center;}
         .demo-btn:hover { background: rgba(59, 130, 246, 0.2); transform: translateY(-2px); }
         
         .rus-link { color: #94a3b8; font-size: 16px; font-style: italic; text-decoration: underline; transition: color 0.3s; display: inline-flex; align-items: center; gap: 8px;}
         .rus-link:hover { color: #f1f5f9; }
 
-        /* --- Hydro Logos Section --- */
-        .hydro-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-top: 40px; }
-        .hydro-feature { background: rgba(6, 182, 212, 0.03); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: 12px; padding: 30px; text-align: left; transition: transform 0.3s; }
-        .hydro-feature:hover { transform: translateY(-5px); border-color: var(--accent-hydro); box-shadow: 0 10px 20px rgba(6, 182, 212, 0.05);}
-        .hydro-feature i { color: var(--accent-hydro); font-size: 36px; margin-bottom: 20px; display: inline-block;}
-        .hydro-feature h4 { color: white; font-family: var(--font-heading); font-size: 20px; margin-bottom: 10px; line-height: 1.3;}
+        /* --- Hydro Logos Section (Teaser) --- */
+        .hydro-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
+        .hydro-feature { background: rgba(6, 182, 212, 0.05); border: 1px solid rgba(6, 182, 212, 0.2); border-radius: 12px; padding: 30px; text-align: left; transition: transform 0.3s;}
+        .hydro-feature:hover { transform: translateY(-5px); border-color: var(--accent-hydro); }
+        .hydro-feature i { color: var(--accent-hydro); font-size: 32px; margin-bottom: 20px; }
+        .hydro-feature h4 { color: white; font-family: var(--font-heading); font-size: 20px; margin-bottom: 10px; }
 
         /* --- About --- */
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
@@ -166,15 +199,51 @@
         /* --- Footer --- */
         footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 15px; }
 
+        /* ==================================================== */
+        /* MOBILE RESPONSIVE FIXES (Կրիտիկական Մոբայլ Ադապտացիա)*/
+        /* ==================================================== */
         @media (max-width: 900px) {
             .dual-pillars, .about-grid, .neo-6-grid, .hydro-features { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 42px; }
+            .hero h1 { font-size: 42px; line-height: 1.2; }
+            .hero p { font-size: 18px; }
+            
+            /* Responsive Buttons in Hero */
+            .hero-cta { flex-direction: column; width: 100%; gap: 15px; }
+            .hero-cta a, .hero-cta button { width: 100%; justify-content: center; }
+            
             .nav-links { display: none; }
             section { padding: 60px 20px; }
+            
+            /* Overriding inline styles for mobile responsiveness */
+            .section-header h2 { font-size: 32px !important; }
+            .service-box h3 { font-size: 28px !important; line-height: 1.3 !important; }
+            
+            /* Responsive fixes for Contact section */
+            .contact-section { padding: 50px 20px !important; }
+            .contact-section h2 { font-size: 30px !important; line-height: 1.3 !important; }
+            .contact-section p { font-size: 16px !important; margin-bottom: 30px !important; }
+            
+            /* The specific fix for ALL buttons on mobile */
+            .btn-primary, .demo-btn, .btn-secondary { 
+                width: 100% !important; 
+                display: flex !important;
+                justify-content: center !important;
+                padding: 16px 20px !important; 
+                font-size: 18px !important; 
+                box-sizing: border-box !important;
+                text-align: center !important;
+            }
+
+            .service-box > div > .btn-primary, 
+            .service-box > div > .demo-btn {
+                font-size: 16px !important;
+            }
         }
     </style>
 </head>
 <body>
+
+<div class="main-wrapper">
 
     <!-- Navbar -->
     <nav class="navbar">
@@ -237,6 +306,7 @@
 
             <!-- Custom 6-Grid with Saryan Colored Borders -->
             <div class="neo-6-grid">
+                
                 <!-- Card 1 -->
                 <div class="neo-step-card card-c1">
                     <h4 style="color: var(--accent-saryan-orange);">1. Concept Summary</h4>
@@ -414,81 +484,35 @@
         </div>
     </section>
 
-    <!-- NeoLogos Section -->
+    <!-- NeoLogos Teaser Section -->
     <section id="neologos">
         <div class="service-box" style="border-color: rgba(6, 182, 212, 0.3);">
             <div class="service-tag tag-hydro"><i class="fa-solid fa-brain"></i> LLM Operating System</div>
             <h3>NeoLogos™: Cognitive Automation</h3>
-            <p class="service-desc" style="max-width: 1000px;">
-                <strong>What is an LLM Operating System?</strong> Unlike standalone chatbots, an LLM OS acts as the central "cognitive CPU" of your enterprise. It provides a unified, secure architecture where Large Language Models are integrated directly into your infrastructure—allowing AI to reason, access corporate memory, and autonomously execute complex workflows via your existing APIs.
+            <p class="service-desc">
+                An advanced framework designed to embed Large Language Models deep into corporate workflows. We transform static organizational data into an interconnected, autonomous intelligence layer capable of reasoning, execution, and continuous learning.
             </p>
 
-            <!-- Architectural SVG Graphic -->
-            <div style="background: rgba(6, 182, 212, 0.03); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: 16px; padding: 40px 20px; margin-bottom: 50px; display: flex; flex-direction: column; align-items: center;">
-                <h4 style="color: white; font-family: var(--font-heading); font-size: 22px; margin-bottom: 30px;">The Anatomy of NeoLogos™</h4>
-                <div style="width: 100%; max-width: 800px; height: auto;">
-                    <svg viewBox="0 0 800 360" style="width: 100%; height: auto;" preserveAspectRatio="xMidYMid meet">
-                        <!-- Connections -->
-                        <path d="M 200 175 L 320 175" stroke="rgba(6, 182, 212, 0.4)" stroke-width="3" stroke-dasharray="6,6" fill="none" />
-                        <path d="M 480 150 L 550 100" stroke="rgba(6, 182, 212, 0.4)" stroke-width="3" stroke-dasharray="6,6" fill="none" />
-                        <path d="M 480 200 L 550 250" stroke="rgba(6, 182, 212, 0.4)" stroke-width="3" stroke-dasharray="6,6" fill="none" />
-                        <path d="M 400 235 L 400 300" stroke="rgba(6, 182, 212, 0.4)" stroke-width="3" stroke-dasharray="6,6" fill="none" />
-                        
-                        <!-- 1. Input Layer -->
-                        <rect x="50" y="135" width="150" height="80" rx="12" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
-                        <text x="125" y="170" fill="white" font-family="Inter, sans-serif" font-weight="bold" font-size="14" text-anchor="middle">User / Trigger</text>
-                        <text x="125" y="190" fill="#94a3b8" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Input Layer</text>
-
-                        <!-- 2. Cognitive Core (Center) -->
-                        <rect x="320" y="115" width="160" height="120" rx="20" fill="rgba(6, 182, 212, 0.15)" stroke="#06b6d4" stroke-width="3"/>
-                        <circle cx="400" cy="155" r="22" fill="#06b6d4"/>
-                        <path d="M 390 155 Q 400 135 410 155 Q 400 175 390 155" fill="white"/>
-                        <text x="400" y="205" fill="white" font-family="Inter, sans-serif" font-weight="bold" font-size="15" text-anchor="middle">LLM Orchestrator</text>
-                        <text x="400" y="222" fill="#06b6d4" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">(The Brain)</text>
-
-                        <!-- 3. Memory Layer -->
-                        <rect x="550" y="60" width="180" height="80" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
-                        <text x="640" y="95" fill="white" font-family="Inter, sans-serif" font-weight="bold" font-size="14" text-anchor="middle">Enterprise Memory</text>
-                        <text x="640" y="115" fill="#10b981" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Vector DB / RAG</text>
-
-                        <!-- 4. Tool/Action Layer -->
-                        <rect x="550" y="210" width="180" height="80" rx="12" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
-                        <text x="640" y="245" fill="white" font-family="Inter, sans-serif" font-weight="bold" font-size="14" text-anchor="middle">Action & Tools</text>
-                        <text x="640" y="265" fill="#f59e0b" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Internal APIs / ERP</text>
-
-                        <!-- 5. Security & Guardrails -->
-                        <rect x="250" y="300" width="300" height="40" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
-                        <text x="400" y="325" fill="white" font-family="Inter, sans-serif" font-weight="bold" font-size="14" text-anchor="middle">Security & Governance Guardrails</text>
-                    </svg>
-                </div>
-            </div>
-
-            <!-- Architectural Pillars -->
-            <div class="hydro-features" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+            <div class="hydro-features">
                 <div class="hydro-feature">
-                    <i class="fa-solid fa-microchip"></i>
-                    <h4>Cognitive Core</h4>
-                    <p style="color: var(--text-muted); font-size: 15px;">The central orchestrator (GPT/Claude) that evaluates tasks, plans multi-step execution, and routes requests to sub-agents.</p>
+                    <i class="fa-solid fa-network-wired"></i>
+                    <h4>Neural Orchestration</h4>
+                    <p style="color: var(--text-muted); font-size: 15px;">Connecting disparate corporate data silos through vector embeddings and context-aware Retrieval-Augmented Generation (RAG).</p>
                 </div>
                 <div class="hydro-feature">
-                    <i class="fa-solid fa-database"></i>
-                    <h4>Enterprise Memory</h4>
-                    <p style="color: var(--text-muted); font-size: 15px;">Transforming company documents into searchable semantic embeddings (Vector DB/RAG) for secure, context-aware recall.</p>
+                    <i class="fa-solid fa-project-diagram"></i>
+                    <h4>Knowledge Graphs</h4>
+                    <p style="color: var(--text-muted); font-size: 15px;">Mapping the entire enterprise intellect to allow AI agents to understand the relationships between employees, documents, and assets.</p>
                 </div>
                 <div class="hydro-feature">
-                    <i class="fa-solid fa-plug"></i>
-                    <h4>Action & Tools</h4>
-                    <p style="color: var(--text-muted); font-size: 15px;">Giving AI "hands" via API integrations. The LLM can autonomously execute tasks like creating tickets or querying ERPs.</p>
-                </div>
-                <div class="hydro-feature">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <h4>Security Guardrails</h4>
-                    <p style="color: var(--text-muted); font-size: 15px;">Strict governance mechanisms ensuring data masking, Role-Based Access Control (RBAC), and compliant, hallucination-free outputs.</p>
+                    <i class="fa-solid fa-robot"></i>
+                    <h4>Autonomous Agents</h4>
+                    <p style="color: var(--text-muted); font-size: 15px;">Deploying specialized AI agents capable of executing complex, multi-step business operations securely and autonomously.</p>
                 </div>
             </div>
             
             <div style="text-align: center; margin-top: 50px;">
-                <p style="color: var(--accent-hydro); font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Unlock the power of Agentic Workflows</p>
+                <p style="color: var(--accent-hydro); font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Detailed Methodology Coming Soon</p>
             </div>
         </div>
     </section>
