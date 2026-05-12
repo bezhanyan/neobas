@@ -8,9 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Main Theme Variables - Boxed & Saryan Accents */
+        /* Main Theme Variables - Completely Dark */
         :root {
-            --bg-page: #ffffff; /* White edges */
+            --bg-page: #0b1120; /* Fully dark edges */
             --bg-main: #0b1120; /* Deep premium dark center */
             --bg-secondary: #162032;
             --bg-card: #1e293b;
@@ -36,21 +36,20 @@
 
         body {
             font-family: var(--font-body); 
-            background-color: var(--bg-page); /* White edges */
+            background-color: var(--bg-page); /* Completely dark background */
             color: var(--text-main); 
             line-height: 1.6; 
             -webkit-font-smoothing: antialiased;
-            padding: 0; /* Removed top/bottom padding */
+            padding: 0; 
             overflow-x: hidden;
         }
 
-        /* --- The Boxed Wrapper --- */
+        /* --- The Main Wrapper --- */
         .main-wrapper {
             max-width: 1280px;
             margin: 0 auto;
             background-color: var(--bg-main);
-            /* Removed border-radius */
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255,255,255,0.05);
+            box-shadow: none; /* Removed the boxed shadow/border for a seamless dark look */
             position: relative;
             display: flex;
             flex-direction: column;
@@ -63,7 +62,6 @@
             background: linear-gradient(90deg, var(--accent-blue), var(--accent-saryan-orange));
             color: white; text-align: center; padding: 12px 20px; font-size: 14px; 
             font-weight: 500; z-index: 2000; position: relative;
-            /* Removed border-radius */
         }
         .announcement-bar a { color: white; text-decoration: underline; font-weight: 700; margin-left: 10px; }
 
@@ -118,7 +116,7 @@
         .btn-secondary { background-color: rgba(255, 255, 255, 0.05); color: white; border: 1px solid var(--border-color); padding: 16px 32px; border-radius: 8px; font-size: 18px; font-weight: 600; text-decoration: none; transition: background 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
         .btn-secondary:hover { background-color: rgba(255, 255, 255, 0.1); }
 
-        /* --- DUAL PILLARS SECTION (NEW) --- */
+        /* --- DUAL PILLARS SECTION --- */
         .dual-pillars {
             display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 60px;
         }
@@ -180,7 +178,7 @@
         .rus-link { color: #94a3b8; font-size: 16px; font-style: italic; text-decoration: underline; transition: color 0.3s; display: inline-flex; align-items: center; gap: 8px;}
         .rus-link:hover { color: #f1f5f9; }
 
-        /* --- Hydro Logos Section (Teaser) --- */
+        /* --- NeoLogos Section (Teaser) --- */
         .hydro-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
         .hydro-feature { background: rgba(6, 182, 212, 0.05); border: 1px solid rgba(6, 182, 212, 0.2); border-radius: 12px; padding: 30px; text-align: left; transition: transform 0.3s;}
         .hydro-feature:hover { transform: translateY(-5px); border-color: var(--accent-hydro); }
@@ -550,7 +548,7 @@
         <p>&copy; 2026 Neobas. All rights reserved. Wisdom in Tech, Success in Business!</p>
     </footer>
 
-</div> <!-- End of Boxed Wrapper -->
+</div> <!-- End of Main Wrapper -->
 
 </body>
 </html>
