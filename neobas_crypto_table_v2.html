@@ -39,15 +39,34 @@
         .grid-table { display: grid; grid-template-columns: 140px repeat(7, minmax(0, 1fr)) 160px; gap: 6px; }
         .gold-border { border: 1px solid rgba(217, 119, 6, 0.2); border-radius: 4px; }
         .element-card { position: relative; display: flex; flex-direction: column; padding: 8px; border-width: 1px; border-style: solid; border-radius: 4px; background: rgba(17, 24, 39, 0.6); backdrop-filter: blur(4px); cursor: pointer; transition: all 0.3s ease;}
-        .element-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.6); border-color: rgba(217, 119, 6, 0.8) !important; }
+        .element-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.6); border-color: rgba(217, 119, 6, 0.8) !important; z-index: 10; }
+        .element-card.dimmed { opacity: 0.15; filter: grayscale(80%); pointer-events: none; transform: none; box-shadow: none; border-color: #1f2937 !important; }
         .tooltip-fade { opacity: 0; transform: translateY(10px); transition: all 0.2s ease-in-out; pointer-events: none; }
         .element-card:hover .tooltip-fade { opacity: 1; transform: translateY(0); }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0B1120; }
+        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D97706; }
     </style>
 </head>
 <body>
 
-    <!-- Հատուկ թաքնված բլոկ՝ Tailwind-ի գույները կոմպիլացնելու համար -->
+    <!-- Tailwind Safelist Dummy Block -->
     <div class="hidden text-c_l0 border-c_l0 bg-c_l0 text-c_l1 border-c_l1 bg-c_l1 text-c_l2 border-c_l2 bg-c_l2 text-c_l3 border-c_l3 bg-c_l3 text-c_l4 border-c_l4 bg-c_l4 text-c_l5 border-c_l5 bg-c_l5 text-c_l6 border-c_l6 bg-c_l6"></div>
+
+    <!-- MODAL OVERLAY -->
+    <div id="elementModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-bgDark/90 backdrop-blur-md opacity-0 transition-opacity duration-300">
+        <div id="modalContentBox" class="bg-panel border border-gold/50 rounded-lg p-6 max-w-lg w-full shadow-[0_0_40px_rgba(217,119,6,0.15)] relative transform scale-95 transition-transform duration-300 mx-4">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div id="modalBody">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>
 
     <div class="w-full max-w-[1300px] mx-auto bg-bgDark rounded-xl p-6 md:p-8 relative border border-[#1f2937] shadow-2xl">
         
@@ -72,7 +91,7 @@
         </div>
 
         <!-- TOP HEADER SECTION -->
-        <div class="flex flex-col md:flex-row justify-between items-start mb-8 gap-4">
+        <div class="flex flex-col md:flex-row justify-between items-start mb-6 gap-4">
             <div class="gold-border p-3 flex gap-4 bg-panel min-w-[200px] shadow-md">
                 <div class="flex flex-col text-xs text-slate-400">
                     <span class="text-gold mb-1 text-[9px] uppercase tracking-widest font-bold">How to read</span>
@@ -106,15 +125,15 @@
                 </div>
             </div>
 
-            <div class="gold-border p-3 bg-panel min-w-[230px] flex flex-col text-[9px] shadow-md">
+            <div class="gold-border p-3 bg-panel min-w-[240px] flex flex-col text-[9px] shadow-md">
                 <span class="text-gold mb-2 uppercase tracking-widest text-center text-[9px] font-bold">Objective Metrics</span>
-                <div class="grid grid-cols-[20px_1fr] gap-2 text-slate-400 mb-1.5 items-center group cursor-help">
-                    <span class="text-gold font-bold">G</span> <span class="leading-tight group-hover:text-slate-200 transition-colors">G = MCap × Network Density</span>
+                <div class="grid grid-cols-[20px_1fr] gap-2 text-slate-400 mb-1.5 items-start group">
+                    <span class="text-gold font-bold">G</span> <span class="leading-tight group-hover:text-slate-200 transition-colors">G = MCap × Network Density<br/><span class="text-[7px] text-slate-500 font-mono">(DAA + TX Vol + Nodes)</span></span>
                 </div>
-                <div class="grid grid-cols-[20px_1fr] gap-2 text-slate-400 mb-1.5 items-center group cursor-help">
+                <div class="grid grid-cols-[20px_1fr] gap-2 text-slate-400 mb-1.5 items-center group">
                     <span class="text-gold font-bold">L</span> <span class="leading-tight group-hover:text-slate-200 transition-colors">Functional Architecture Role</span>
                 </div>
-                <div class="grid grid-cols-[20px_1fr] gap-2 text-slate-400 mb-1.5 items-center group cursor-help">
+                <div class="grid grid-cols-[20px_1fr] gap-2 text-slate-400 mb-1.5 items-center group">
                     <span class="text-gold font-bold">V</span> <span class="leading-tight group-hover:text-slate-200 transition-colors">V = Σ(Ecosystem Integrations)</span>
                 </div>
                 <div class="grid grid-cols-[20px_1fr] gap-2 text-slate-400 items-center">
@@ -123,133 +142,33 @@
             </div>
         </div>
 
+        <!-- INTERACTIVE CONTROL PANEL -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6 bg-panel p-3 border border-borderCol rounded-md gap-4">
+            <div class="text-[10px] text-slate-400 font-mono tracking-widest uppercase">
+                Interactive Map: <span class="text-gold ml-2" id="resultsCount">35 Elements</span>
+            </div>
+            <div class="flex items-center gap-4 w-full md:w-auto">
+                <div class="relative w-full md:w-64">
+                    <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <input type="text" id="searchInput" placeholder="Search element..." class="w-full bg-[#0B1120] border border-slate-700 text-slate-300 text-xs px-9 py-2 rounded focus:outline-none focus:border-gold transition-colors font-mono placeholder-slate-600">
+                </div>
+                <select id="filterGravity" class="bg-[#0B1120] border border-slate-700 text-slate-300 text-xs px-3 py-2 rounded focus:outline-none focus:border-gold transition-colors font-mono cursor-pointer appearance-none w-full md:w-auto">
+                    <option value="ALL">ALL GRAVITY</option>
+                    <option value="G5">G5 (System-Defining)</option>
+                    <option value="G4">G4 (Infrastructure)</option>
+                    <option value="G3">G3 (Network/Protocol)</option>
+                    <option value="G2">G2 (App/Liquidity)</option>
+                    <option value="G1">G1 (Experimental)</option>
+                </select>
+            </div>
+        </div>
+
         <!-- MAIN TABLE GRID -->
         <div id="periodic-table-grid" class="grid-table mb-6">
-            <!-- Աղյուսակը գեներացվում է ստորև գտնվող JavaScript-ով -->
+            <!-- Injected via JavaScript -->
         </div>
 
-        <!-- Color Legend Bottom -->
-        <div class="flex flex-wrap justify-center items-center gap-6 py-4 text-[9px] uppercase tracking-wider text-slate-400 border-b border-borderCol mb-8">
-            <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-sm bg-c_l0"></div> L0 Commodities (Alkali)</div>
-            <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-sm bg-c_l1"></div> L1 Execution (Alkaline Earth)</div>
-            <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-sm bg-c_l2"></div> L2 Scaling (Transition Metals)</div>
-            <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-sm bg-c_l3"></div> L3 DeFi (Metalloids)</div>
-            <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-sm bg-c_l4"></div> L4 Oracles (Post-Transition)</div>
-            <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-sm bg-c_l6"></div> L6 Cultural (Noble Gases)</div>
-        </div>
-
-        <!-- BOTTOM PANELS -->
-        <div class="grid grid-cols-1 lg:grid-cols-[1.5fr_2fr_1.5fr] gap-4">
-            
-            <!-- BOND MATRIX -->
-            <div class="gold-border p-5 bg-panel relative rounded-lg">
-                <h3 class="text-[10px] text-slate-300 uppercase tracking-widest mb-4 font-bold">Bond Matrix <span class="text-slate-500 font-normal">(Examples)</span></h3>
-                <div class="h-40 relative flex items-center justify-center hover:scale-105 transition-transform duration-500 cursor-crosshair">
-                    <svg width="100%" height="100%" viewBox="0 0 200 150">
-                        <line x1="100" y1="30" x2="50" y2="70" stroke="#334155" stroke-width="1.5"/>
-                        <line x1="100" y1="30" x2="150" y2="70" stroke="#334155" stroke-width="1.5"/>
-                        <line x1="50" y1="70" x2="150" y2="70" stroke="#334155" stroke-width="1" stroke-dasharray="4"/>
-                        <line x1="50" y1="70" x2="80" y2="120" stroke="#334155" stroke-width="1.5"/>
-                        <line x1="150" y1="70" x2="120" y2="120" stroke="#334155" stroke-width="1" stroke-dasharray="2"/>
-                        <line x1="80" y1="120" x2="120" y2="120" stroke="#334155" stroke-width="1.5"/>
-                        <line x1="100" y1="30" x2="120" y2="120" stroke="#334155" stroke-width="1.5"/>
-                        <line x1="100" y1="30" x2="80" y2="120" stroke="#334155" stroke-width="1.5"/>
-                        
-                        <circle cx="100" cy="30" r="15" fill="#0f172a" stroke="#8b5cf6" stroke-width="2"/>
-                        <text x="100" y="34" text-anchor="middle" font-size="11" fill="#8b5cf6" font-family="serif" font-weight="bold">Te</text>
-                        
-                        <circle cx="50" cy="70" r="15" fill="#0f172a" stroke="#3b82f6" stroke-width="2"/>
-                        <text x="50" y="74" text-anchor="middle" font-size="11" fill="#3b82f6" font-family="serif" font-weight="bold">Et</text>
-
-                        <circle cx="150" cy="70" r="15" fill="#0f172a" stroke="#10b981" stroke-width="2"/>
-                        <text x="150" y="74" text-anchor="middle" font-size="11" fill="#10b981" font-family="serif" font-weight="bold">Un</text>
-
-                        <circle cx="80" cy="120" r="15" fill="#0f172a" stroke="#84cc16" stroke-width="2"/>
-                        <text x="80" y="124" text-anchor="middle" font-size="11" fill="#84cc16" font-family="serif" font-weight="bold">Ln</text>
-
-                        <circle cx="120" cy="120" r="15" fill="#0f172a" stroke="#8b5cf6" stroke-width="2"/>
-                        <text x="120" y="124" text-anchor="middle" font-size="11" fill="#8b5cf6" font-family="serif" font-weight="bold">Uc</text>
-                        
-                        <circle cx="20" cy="100" r="15" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
-                        <text x="20" y="104" text-anchor="middle" font-size="11" fill="#f59e0b" font-family="serif" font-weight="bold">Bt</text>
-                        <line x1="20" y1="100" x2="50" y2="70" stroke="#334155" stroke-width="1" stroke-dasharray="4"/>
-                        <line x1="20" y1="100" x2="80" y2="120" stroke="#334155" stroke-width="1" stroke-dasharray="2"/>
-                    </svg>
-                </div>
-                <div class="absolute right-4 top-10 flex flex-col gap-2 text-[8px] text-slate-400 uppercase tracking-widest">
-                    <div class="flex items-center gap-2"><div class="w-4 h-px bg-slate-400"></div> Strong Bond</div>
-                    <div class="flex items-center gap-2"><div class="w-4 h-px bg-slate-400 border-t border-dashed border-slate-400"></div> Functional Bond</div>
-                    <div class="flex items-center gap-2"><div class="w-4 h-px bg-slate-400 border-t border-dotted border-slate-400"></div> Weak Bond</div>
-                </div>
-            </div>
-
-            <!-- MOLECULES -->
-            <div class="gold-border p-5 bg-panel rounded-lg">
-                <h3 class="text-[10px] text-slate-300 uppercase tracking-widest text-center mb-4 font-bold">Molecules <span class="text-slate-500 font-normal">(Common Combinations)</span></h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 h-[150px]">
-                    <div class="border border-c_l2 border-opacity-30 rounded bg-[#0B1120] flex flex-col items-center justify-between p-3 text-center transition hover:border-opacity-100 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)] cursor-pointer">
-                        <span class="text-c_l2 text-[9px] uppercase tracking-wider font-semibold">DeFi DEX<br/>Molecule</span>
-                        <div class="flex items-center gap-1 font-serif text-[10px] font-bold">
-                            <div class="w-6 h-6 rounded-full border border-c_l1 text-c_l1 flex items-center justify-center bg-blue-900/20">Et</div> + 
-                            <div class="w-6 h-6 rounded-full border border-c_l5 text-c_l5 flex items-center justify-center bg-purple-900/20">Uc</div> + 
-                            <div class="w-6 h-6 rounded-full border border-c_l3 text-c_l3 flex items-center justify-center bg-green-900/20">Un</div>
-                        </div>
-                        <div class="text-[7px] text-slate-400 uppercase tracking-wider">Swap • Liquidity<br/><span class="text-slate-500">Valency: High</span></div>
-                    </div>
-                    <div class="border border-c_l3 border-opacity-30 rounded bg-[#0B1120] flex flex-col items-center justify-between p-3 text-center transition hover:border-opacity-100 hover:shadow-[0_0_15px_rgba(16,185,129,0.15)] cursor-pointer">
-                        <span class="text-c_l3 text-[9px] uppercase tracking-wider font-semibold">Lending<br/>Molecule</span>
-                        <div class="flex items-center gap-1 font-serif text-[10px] font-bold">
-                            <div class="w-6 h-6 rounded-full border border-c_l1 text-c_l1 flex items-center justify-center bg-blue-900/20">Et</div> + 
-                            <div class="w-6 h-6 rounded-full border border-c_l5 text-c_l5 flex items-center justify-center bg-purple-900/20">Uc</div> + 
-                            <div class="w-6 h-6 rounded-full border border-c_l3 text-c_l3 flex items-center justify-center bg-green-900/20">Aa</div>
-                        </div>
-                        <div class="text-[7px] text-slate-400 uppercase tracking-wider">Collateral • Lending<br/><span class="text-slate-500">Valency: High</span></div>
-                    </div>
-                    <div class="border border-c_l5 border-opacity-30 rounded bg-[#0B1120] flex flex-col items-center justify-between p-3 text-center transition hover:border-opacity-100 hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] cursor-pointer">
-                        <span class="text-c_l5 text-[9px] uppercase tracking-wider font-semibold">Stablecoin<br/>Molecule</span>
-                        <div class="flex items-center gap-1 font-serif text-[10px] font-bold">
-                            <div class="w-6 h-6 rounded-full border border-c_l5 text-c_l5 flex items-center justify-center bg-purple-900/20">Te</div> + 
-                            <div class="w-6 h-6 rounded-full border border-c_l5 text-c_l5 flex items-center justify-center bg-purple-900/20">Uc</div> + 
-                            <div class="w-6 h-6 rounded-full border border-c_l3 text-c_l3 flex items-center justify-center bg-green-900/20">Mk</div>
-                        </div>
-                        <div class="text-[7px] text-slate-400 uppercase tracking-wider">Peg • Collateral<br/><span class="text-slate-500">Valency: Very High</span></div>
-                    </div>
-                    <div class="border border-c_l1 border-opacity-30 rounded bg-[#0B1120] flex flex-col items-center justify-between p-3 text-center transition hover:border-opacity-100 hover:shadow-[0_0_15px_rgba(59,130,246,0.15)] cursor-pointer">
-                        <span class="text-c_l1 text-[9px] uppercase tracking-wider font-semibold">L2 Scaling<br/>Molecule</span>
-                        <div class="flex items-center gap-1 font-serif text-[8px] font-bold">
-                            <div class="w-6 h-6 rounded-full border border-c_l1 text-c_l1 flex items-center justify-center bg-blue-900/20 text-[10px]">Et</div> + 
-                            <div class="w-6 h-6 rounded-full border border-c_l2 text-c_l2 flex items-center justify-center bg-cyan-900/20">Arb</div> + 
-                            <div class="w-6 h-6 rounded-full border border-c_l4 text-c_l4 flex items-center justify-center bg-lime-900/20">Ln</div>
-                        </div>
-                        <div class="text-[7px] text-slate-400 uppercase tracking-wider">Execution • Bridge<br/><span class="text-slate-500">Stability: High</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ALCHEMICAL FORMULA -->
-            <div class="gold-border p-5 bg-panel flex justify-between items-center relative rounded-lg overflow-hidden group">
-                <div class="flex flex-col gap-2.5 text-[9px] text-slate-300 relative z-10 pl-2 uppercase tracking-widest">
-                    <h3 class="text-gold tracking-[0.2em] mb-2 font-serif text-sm font-bold group-hover:text-amber-400 transition-colors">NeoGenesys Protocol</h3>
-                    <p class="flex items-center gap-2"><span class="text-gold">1.</span> Elements create Bonds.</p>
-                    <p class="flex items-center gap-2"><span class="text-gold">2.</span> Bonds create Molecules.</p>
-                    <p class="flex items-center gap-2"><span class="text-gold">3.</span> Molecules create Protocols.</p>
-                    <p class="flex items-center gap-2"><span class="text-gold">4.</span> Protocols create Ecosystems.</p>
-                    <p class="flex items-center gap-2 font-bold text-white"><span class="text-gold">5.</span> Ecosystems create Autonomy.</p>
-                </div>
-                <div class="absolute -right-4 top-1/2 -translate-y-1/2 opacity-30 w-[180px] h-[180px] group-hover:opacity-60 transition-opacity duration-700 group-hover:rotate-12">
-                    <svg width="100%" height="100%" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="#D97706" stroke-width="0.5" stroke-dasharray="2,2"/>
-                        <circle cx="50" cy="50" r="30" fill="none" stroke="#D97706" stroke-width="1"/>
-                        <polygon points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="#D97706" stroke-width="0.5"/>
-                        <polygon points="50,20 76,65 24,65" fill="none" stroke="#D97706" stroke-width="1"/>
-                        <polygon points="50,80 24,35 76,35" fill="none" stroke="#D97706" stroke-width="1"/>
-                        <circle cx="50" cy="50" r="4" fill="#D97706"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-
-        <!-- EXPLANATORY TEXT (METHODOLOGY) -->
+        <!-- EXPLANATORY TEXT (METHODOLOGY - ENHANCED) -->
         <div class="mt-10 border-t border-borderCol pt-8">
             <h3 class="text-gold font-serif text-lg mb-6 tracking-widest uppercase text-center md:text-left drop-shadow-sm">Framework Methodology & Core Metrics</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-[10px] text-slate-400 leading-relaxed font-light">
@@ -266,7 +185,7 @@
                         <span>2. Systemic Gravity (G)</span>
                         <span class="text-gold text-[8px] font-mono border border-gold/30 px-2 py-0.5 rounded w-max bg-gold/10">G = MCap × Network Density</span>
                     </strong>
-                    Gravity (G1-G5) is an objective metric defining network weight. Not all tokens hold the same influence. G5 anchors (Cap > $50B + broad reliance) define the industry base, whereas G1 represents early-stage, experimental nodes with lower systemic mass.
+                    Gravity (G1-G5) is an objective metric defining network weight. Network Density is a composite index of <strong>Daily Active Addresses (DAA)</strong>, <strong>Transaction Volume</strong>, and <strong>Node Count</strong>. G5 anchors define the industry base, whereas G1 represents experimental nodes.
                 </div>
                 <div class="bg-panel/50 p-4 rounded border border-borderCol/50 hover:bg-panel transition-colors">
                     <strong class="text-slate-200 mb-3 uppercase tracking-widest flex flex-col gap-1">
@@ -291,100 +210,96 @@
                 "The architect sees not just code, but transformation."
             </p>
             <p class="text-[9px] text-slate-600 font-mono tracking-widest uppercase mt-4">
-                v1.1 • NeoGenesys Framework • 2026
+                v1.2 • NeoGenesys Framework • 2026
             </p>
         </div>
 
     </div>
 
     <script>
-        // Vanilla JavaScript - Աղյուսակի գեներացում (Ապահով է բոլոր բրաուզերներում)
-        document.addEventListener("DOMContentLoaded", () => {
-            const elements = [
-                { num: 1, id: 'Bt', name: 'Bitcoin', layer: 'L0', gravity: 'G5', val: 'V4', mc: '$1.3T', col: 'c_l0', formula: 'G5 = Cap > $50B' },
-                { num: 2, id: 'Et', name: 'Ethereum', layer: 'L1', gravity: 'G5', val: 'V7', mc: '$400B', col: 'c_l1', formula: 'V7 = High Composability' },
-                { num: 3, id: 'Sol', name: 'Solana', layer: 'L2', gravity: 'G5', val: 'V6', mc: '$60B', col: 'c_l2', formula: 'High TPS Node' },
-                { num: 4, id: 'Un', name: 'Uniswap', layer: 'L3', gravity: 'G5', val: 'V7', mc: '$5B', col: 'c_l3', formula: 'Core AMM Liquidity' },
-                { num: 5, id: 'Ln', name: 'Chainlink', layer: 'L4', gravity: 'G5', val: 'V9', mc: '$8B', col: 'c_l4', formula: 'V9 = Max Integrations' },
-                { num: 6, id: 'Te', name: 'Tether', layer: 'L5', gravity: 'G5', val: 'V8', mc: '$110B', col: 'c_l5', formula: 'Macro Fiat Peg' },
-                { num: 7, id: 'Dg', name: 'Dogecoin', layer: 'L6', gravity: 'G5', val: 'V3', mc: '$20B', col: 'c_l6', formula: 'High Cultural Entropy' },
-                
-                { num: 8, id: 'Lt', name: 'Litecoin', layer: 'L0', gravity: 'G4', val: 'V3', mc: '$5B', col: 'c_l0', formula: 'Legacy Commodity' },
-                { num: 9, id: 'Ada', name: 'Cardano', layer: 'L1', gravity: 'G4', val: 'V5', mc: '$15B', col: 'c_l1', formula: 'Execution Layer' },
-                { num: 10, id: 'Matic', name: 'Polygon', layer: 'L2', gravity: 'G4', val: 'V5', mc: '$7B', col: 'c_l2', formula: 'L2 Infrastructure' },
-                { num: 11, id: 'Aave', name: 'Aave', layer: 'L3', gravity: 'G4', val: 'V7', mc: '$1.5B', col: 'c_l3', formula: 'Credit Generation' },
-                { num: 12, id: 'Gr', name: 'The Graph', layer: 'L4', gravity: 'G4', val: 'V7', mc: '$2B', col: 'c_l4', formula: 'Data Indexing Node' },
-                { num: 13, id: 'Uc', name: 'USDC', layer: 'L5', gravity: 'G4', val: 'V8', mc: '$30B', col: 'c_l5', formula: 'Institutional Peg' },
-                { num: 14, id: 'Sh', name: 'Shiba Inu', layer: 'L6', gravity: 'G4', val: 'V3', mc: '$15B', col: 'c_l6', formula: 'Speculative Asset' },
+        // Data Structure
+        const elementsData = [
+            { num: 1, id: 'Bt', name: 'Bitcoin', layer: 'L0', layerFull: 'Base / Digital Commodity', gravity: 'G5', val: 'V4', mc: '$1.3T', col: 'c_l0', formula: 'G5 = Cap > $50B', density: 'High (Nodes: 18k+, DAA: 800k)' },
+            { num: 2, id: 'Et', name: 'Ethereum', layer: 'L1', layerFull: 'Settlement / Execution', gravity: 'G5', val: 'V7', mc: '$400B', col: 'c_l1', formula: 'V7 = High Composability', density: 'Very High (DAA: 400k, Deep Defi)' },
+            { num: 3, id: 'Sol', name: 'Solana', layer: 'L2', layerFull: 'Scaling / High TPS', gravity: 'G5', val: 'V6', mc: '$60B', col: 'c_l2', formula: 'High TPS Node', density: 'High (DAA: 1M+, TX: 30M/day)' },
+            { num: 4, id: 'Un', name: 'Uniswap', layer: 'L3', layerFull: 'DeFi / Liquidity', gravity: 'G5', val: 'V7', mc: '$5B', col: 'c_l3', formula: 'Core AMM Liquidity', density: 'High (Vol: $1B+/day, Integrations: 500+)' },
+            { num: 5, id: 'Ln', name: 'Chainlink', layer: 'L4', layerFull: 'Infrastructure / Oracles', gravity: 'G5', val: 'V9', mc: '$8B', col: 'c_l4', formula: 'V9 = Max Integrations', density: 'Systemic Anchor (Secures $20B+ TVL)' },
+            { num: 6, id: 'Te', name: 'Tether', layer: 'L5', layerFull: 'Monetary / Stable Value', gravity: 'G5', val: 'V8', mc: '$110B', col: 'c_l5', formula: 'Macro Fiat Peg', density: 'Very High (Base Pair for 80% DEX/CEX)' },
+            { num: 7, id: 'Dg', name: 'Dogecoin', layer: 'L6', layerFull: 'Cultural / Speculative', gravity: 'G5', val: 'V3', mc: '$20B', col: 'c_l6', formula: 'High Cultural Entropy', density: 'Medium-High (Retail Dominated)' },
+            
+            { num: 8, id: 'Lt', name: 'Litecoin', layer: 'L0', layerFull: 'Digital Commodity', gravity: 'G4', val: 'V3', mc: '$5B', col: 'c_l0', formula: 'Legacy Commodity', density: 'Medium (DAA: 200k)' },
+            { num: 9, id: 'Ada', name: 'Cardano', layer: 'L1', layerFull: 'Execution', gravity: 'G4', val: 'V5', mc: '$15B', col: 'c_l1', formula: 'Execution Layer', density: 'Medium (Research Driven)' },
+            { num: 10, id: 'Matic', name: 'Polygon', layer: 'L2', layerFull: 'Scaling', gravity: 'G4', val: 'V5', mc: '$7B', col: 'c_l2', formula: 'L2 Infrastructure', density: 'High (DAA: 350k, Enterprise adoption)' },
+            { num: 11, id: 'Aave', name: 'Aave', layer: 'L3', layerFull: 'Credit Management', gravity: 'G4', val: 'V7', mc: '$1.5B', col: 'c_l3', formula: 'Credit Generation', density: 'High ($10B+ Protocol TVL)' },
+            { num: 12, id: 'Gr', name: 'The Graph', layer: 'L4', layerFull: 'Data Indexing', gravity: 'G4', val: 'V7', mc: '$2B', col: 'c_l4', formula: 'Data Indexing Node', density: 'High (Query Volume: Billions/mo)' },
+            { num: 13, id: 'Uc', name: 'USDC', layer: 'L5', layerFull: 'Stable Value', gravity: 'G4', val: 'V8', mc: '$30B', col: 'c_l5', formula: 'Institutional Peg', density: 'High (DeFi Preferred Stable)' },
+            { num: 14, id: 'Sh', name: 'Shiba Inu', layer: 'L6', layerFull: 'Cultural Layer', gravity: 'G4', val: 'V3', mc: '$15B', col: 'c_l6', formula: 'Speculative Asset', density: 'Medium (Ecosystem transitioning)' },
 
-                { num: 15, id: 'Bc', name: 'Bitcoin Cash', layer: 'L0', gravity: 'G3', val: 'V3', mc: '$9B', col: 'c_l0', formula: 'Forked Commodity' },
-                { num: 16, id: 'Si', name: 'Stellar', layer: 'L1', gravity: 'G3', val: 'V4', mc: '$6B', col: 'c_l1', formula: 'Payment Network' },
-                { num: 17, id: 'Arb', name: 'Arbitrum', layer: 'L2', gravity: 'G3', val: 'V5', mc: '$3B', col: 'c_l2', formula: 'Optimistic Rollup' },
-                { num: 18, id: 'Mk', name: 'Maker', layer: 'L3', gravity: 'G3', val: 'V6', mc: '$3B', col: 'c_l3', formula: 'CDP Protocol' },
-                { num: 19, id: 'Pyth', name: 'Pyth Network', layer: 'L4', gravity: 'G3', val: 'V6', mc: '$1.5B', col: 'c_l4', formula: 'Low-Latency Oracle' },
-                { num: 20, id: 'Da', name: 'Dai', layer: 'L5', gravity: 'G3', val: 'V6', mc: '$5B', col: 'c_l5', formula: 'Algorithmic Stable' },
-                { num: 21, id: 'Pe', name: 'Pepe', layer: 'L6', gravity: 'G3', val: 'V2', mc: '$3B', col: 'c_l6', formula: 'Cultural Token' },
+            { num: 15, id: 'Bc', name: 'Bitcoin Cash', layer: 'L0', layerFull: 'Digital Commodity', gravity: 'G3', val: 'V3', mc: '$9B', col: 'c_l0', formula: 'Forked Commodity', density: 'Low-Medium' },
+            { num: 16, id: 'Si', name: 'Stellar', layer: 'L1', layerFull: 'Execution', gravity: 'G3', val: 'V4', mc: '$6B', col: 'c_l1', formula: 'Payment Network', density: 'Medium (Cross-border focus)' },
+            { num: 17, id: 'Arb', name: 'Arbitrum', layer: 'L2', layerFull: 'Optimistic Rollup', gravity: 'G3', val: 'V5', mc: '$3B', col: 'c_l2', formula: 'L2 Scale', density: 'High (Dominant L2 TVL)' },
+            { num: 18, id: 'Mk', name: 'Maker', layer: 'L3', layerFull: 'CDP Protocol', gravity: 'G3', val: 'V6', mc: '$3B', col: 'c_l3', formula: 'CDP Protocol', density: 'Medium-High (RWA Integrations)' },
+            { num: 19, id: 'Pyth', name: 'Pyth Network', layer: 'L4', layerFull: 'Oracle Infrastructure', gravity: 'G3', val: 'V6', mc: '$1.5B', col: 'c_l4', formula: 'Low-Latency Oracle', density: 'Medium (Rapid DeFi adoption)' },
+            { num: 20, id: 'Da', name: 'Dai', layer: 'L5', layerFull: 'Algorithmic Stable', gravity: 'G3', val: 'V6', mc: '$5B', col: 'c_l5', formula: 'Algorithmic Stable', density: 'Medium (Decentralized collateral)' },
+            { num: 21, id: 'Pe', name: 'Pepe', layer: 'L6', layerFull: 'Cultural', gravity: 'G3', val: 'V2', mc: '$3B', col: 'c_l6', formula: 'Cultural Token', density: 'Low (Pure speculation)' },
 
-                { num: 22, id: 'Po', name: 'Polkadot', layer: 'L0', gravity: 'G2', val: 'V4', mc: '$10B', col: 'c_l0', formula: 'Relay Chain Layer' },
-                { num: 23, id: 'Op', name: 'Optimism', layer: 'L1', gravity: 'G2', val: 'V4', mc: '$2B', col: 'c_l1', formula: 'L2 Scaling Node' },
-                { num: 24, id: 'Zk', name: 'zkSync', layer: 'L2', gravity: 'G2', val: 'V4', mc: '$1.2B', col: 'c_l2', formula: 'ZKP Infrastructure' },
-                { num: 25, id: 'Crv', name: 'Curve', layer: 'L3', gravity: 'G2', val: 'V6', mc: '$1B', col: 'c_l3', formula: 'Stable AMM' },
-                { num: 26, id: 'Sup', name: 'Superfluid', layer: 'L4', gravity: 'G2', val: 'V5', mc: '$0.6B', col: 'c_l4', formula: 'Streaming Infra' },
-                { num: 27, id: 'Frax', name: 'Frax', layer: 'L5', gravity: 'G2', val: 'V5', mc: '$1B', col: 'c_l5', formula: 'Fractional Stable' },
-                { num: 28, id: 'Flk', name: 'FLOKI', layer: 'L6', gravity: 'G2', val: 'V2', mc: '$0.6B', col: 'c_l6', formula: 'Retail Community' },
+            { num: 22, id: 'Po', name: 'Polkadot', layer: 'L0', layerFull: 'Relay Chain', gravity: 'G2', val: 'V4', mc: '$10B', col: 'c_l0', formula: 'Relay Chain Layer', density: 'Medium (Parachain architecture)' },
+            { num: 23, id: 'Op', name: 'Optimism', layer: 'L1', layerFull: 'L2 Execution', gravity: 'G2', val: 'V4', mc: '$2B', col: 'c_l1', formula: 'L2 Scaling Node', density: 'Medium (Superchain vision)' },
+            { num: 24, id: 'Zk', name: 'zkSync', layer: 'L2', layerFull: 'ZKP Infrastructure', gravity: 'G2', val: 'V4', mc: '$1.2B', col: 'c_l2', formula: 'ZKP Infrastructure', density: 'Low-Medium (Growing ecosystem)' },
+            { num: 25, id: 'Crv', name: 'Curve', layer: 'L3', layerFull: 'Stable AMM', gravity: 'G2', val: 'V6', mc: '$1B', col: 'c_l3', formula: 'Stable AMM', density: 'Medium (Crucial peg infrastructure)' },
+            { num: 26, id: 'Sup', name: 'Superfluid', layer: 'L4', layerFull: 'Streaming Infra', gravity: 'G2', val: 'V5', mc: '$0.6B', col: 'c_l4', formula: 'Streaming Infra', density: 'Low (Niche utility)' },
+            { num: 27, id: 'Frax', name: 'Frax', layer: 'L5', layerFull: 'Fractional Stable', gravity: 'G2', val: 'V5', mc: '$1B', col: 'c_l5', formula: 'Fractional Stable', density: 'Low-Medium (Algorithmic model)' },
+            { num: 28, id: 'Flk', name: 'FLOKI', layer: 'L6', layerFull: 'Cultural Layer', gravity: 'G2', val: 'V2', mc: '$0.6B', col: 'c_l6', formula: 'Retail Community', density: 'Low (Marketing driven)' },
 
-                { num: 29, id: 'Nxt', name: 'NEXO', layer: 'L0', gravity: 'G1', val: 'V2', mc: '$0.4B', col: 'c_l0', formula: 'CeFi Integration' },
-                { num: 30, id: 'Atom', name: 'Cosmos', layer: 'L1', gravity: 'G1', val: 'V3', mc: '$0.8B', col: 'c_l1', formula: 'Appchain Hub' },
-                { num: 31, id: 'Stx', name: 'Stacks', layer: 'L2', gravity: 'G1', val: 'V3', mc: '$0.6B', col: 'c_l2', formula: 'BTC Smart Contracts' },
-                { num: 32, id: 'Comp', name: 'Compound', layer: 'L3', gravity: 'G1', val: 'V4', mc: '$0.5B', col: 'c_l3', formula: 'Algorithmic Rates' },
-                { num: 33, id: 'Band', name: 'Band Protocol', layer: 'L4', gravity: 'G1', val: 'V4', mc: '$0.3B', col: 'c_l4', formula: 'Cross-Chain Oracle' },
-                { num: 34, id: 'Tusd', name: 'TrueUSD', layer: 'L5', gravity: 'G1', val: 'V4', mc: '$0.5B', col: 'c_l5', formula: 'Regulated Stable' },
-                { num: 35, id: 'Bonk', name: 'Bonk', layer: 'L6', gravity: 'G1', val: 'V1', mc: '$0.2B', col: 'c_l6', formula: 'Emerging Culture' }
-            ];
+            { num: 29, id: 'Nxt', name: 'NEXO', layer: 'L0', layerFull: 'CeFi Platform', gravity: 'G1', val: 'V2', mc: '$0.4B', col: 'c_l0', formula: 'CeFi Integration', density: 'Low (Centralized node)' },
+            { num: 30, id: 'Atom', name: 'Cosmos', layer: 'L1', layerFull: 'Appchain Hub', gravity: 'G1', val: 'V3', mc: '$0.8B', col: 'c_l1', formula: 'Appchain Hub', density: 'Low (IBC routing)' },
+            { num: 31, id: 'Stx', name: 'Stacks', layer: 'L2', layerFull: 'BTC L2', gravity: 'G1', val: 'V3', mc: '$0.6B', col: 'c_l2', formula: 'BTC Smart Contracts', density: 'Low (Emerging BTC DeFi)' },
+            { num: 32, id: 'Comp', name: 'Compound', layer: 'L3', layerFull: 'Algorithmic Rates', gravity: 'G1', val: 'V4', mc: '$0.5B', col: 'c_l3', formula: 'Algorithmic Rates', density: 'Low (Legacy DeFi)' },
+            { num: 33, id: 'Band', name: 'Band Protocol', layer: 'L4', layerFull: 'Cross-Chain Oracle', gravity: 'G1', val: 'V4', mc: '$0.3B', col: 'c_l4', formula: 'Cross-Chain Oracle', density: 'Low (Alternative to Chainlink)' },
+            { num: 34, id: 'Tusd', name: 'TrueUSD', layer: 'L5', layerFull: 'Regulated Stable', gravity: 'G1', val: 'V4', mc: '$0.5B', col: 'c_l5', formula: 'Regulated Stable', density: 'Low (Alternative fiat peg)' },
+            { num: 35, id: 'Bonk', name: 'Bonk', layer: 'L6', layerFull: 'Cultural Node', gravity: 'G1', val: 'V1', mc: '$0.2B', col: 'c_l6', formula: 'Emerging Culture', density: 'Low (Solana ecosystem)' }
+        ];
 
-            const gravityLevels = [
-                { g: 'G5', desc: 'High monetary mass and ecosystem defining influence. Foundational assets.', title: 'Monetary Gravity', sub: 'System-Defining' },
-                { g: 'G4', desc: 'Critical infrastructure and widely integrated systemic layers.', title: 'Systemic Infra', sub: 'Network Pillars' },
-                { g: 'G3', desc: 'Established protocols with specific financial/technical functions.', title: 'Network Layer', sub: 'Functional Nodes' },
-                { g: 'G2', desc: 'Applications and liquidity layers serving end-user operations.', title: 'Application Layer', sub: 'User-Facing Apps' },
-                { g: 'G1', desc: 'Early-stage, experimental or culturally driven high-entropy assets.', title: 'Experimental', sub: 'Emerging Assets' }
-            ];
+        const gravityLevels = [
+            { g: 'G5', desc: 'High monetary mass and ecosystem defining influence. Foundational assets.', title: 'Monetary Gravity', sub: 'System-Defining' },
+            { g: 'G4', desc: 'Critical infrastructure and widely integrated systemic layers.', title: 'Systemic Infra', sub: 'Network Pillars' },
+            { g: 'G3', desc: 'Established protocols with specific financial/technical functions.', title: 'Network Layer', sub: 'Functional Nodes' },
+            { g: 'G2', desc: 'Applications and liquidity layers serving end-user operations.', title: 'Application Layer', sub: 'User-Facing Apps' },
+            { g: 'G1', desc: 'Early-stage, experimental or culturally driven high-entropy assets.', title: 'Experimental', sub: 'Emerging Assets' }
+        ];
+
+        // Core Render Function
+        function renderTable() {
+            const searchVal = document.getElementById('searchInput').value.toLowerCase();
+            const filterVal = document.getElementById('filterGravity').value;
+            let activeCount = 0;
 
             let html = `
                 <div class="flex flex-col items-center justify-center p-2 gold-border bg-panel">
                     <span class="text-[9px] text-slate-400 uppercase tracking-widest mb-1">Systemic</span>
                     <span class="text-xs text-gold uppercase tracking-widest font-semibold">Gravity</span>
                 </div>
-                
                 <div class="text-center p-2 gold-border bg-panel flex flex-col justify-center">
-                    <span class="text-c_l0 font-bold text-sm">L0</span>
-                    <span class="text-[8px] text-slate-400 uppercase tracking-wider mt-1">Base / Digital<br/>Commodities</span>
+                    <span class="text-c_l0 font-bold text-sm">L0</span><span class="text-[8px] text-slate-400 uppercase tracking-wider mt-1">Base / Digital<br/>Commodities</span>
                 </div>
                 <div class="text-center p-2 gold-border bg-panel flex flex-col justify-center">
-                    <span class="text-c_l1 font-bold text-sm">L1</span>
-                    <span class="text-[8px] text-slate-400 uppercase tracking-wider mt-1">Settlement /<br/>Execution</span>
+                    <span class="text-c_l1 font-bold text-sm">L1</span><span class="text-[8px] text-slate-400 uppercase tracking-wider mt-1">Settlement /<br/>Execution</span>
                 </div>
                 <div class="text-center p-2 gold-border bg-panel flex flex-col justify-center">
-                    <span class="text-c_l2 font-bold text-sm">L2</span>
-                    <span class="text-[8px] text-slate-400 uppercase tracking-wider mt-1">Scaling /<br/>Layer 2</span>
+                    <span class="text-c_l2 font-bold text-sm">L2</span><span class="text-[8px] text-slate-400 uppercase tracking-wider mt-1">Scaling /<br/>Layer 2</span>
                 </div>
                 <div class="text-center p-2 gold-border bg-panel flex flex-col justify-center">
-                    <span class="text-c_l3 font-bold text-sm">L3</span>
-                    <span class="text-[8px] text-slate-400 uppercase tracking-wider mt-1">DeFi /<br/>Liquidity</span>
+                    <span class="text-c_l3 font-bold text-sm">L3</span><span class="text-[8px] text-slate-400 uppercase tracking-wider mt-1">DeFi /<br/>Liquidity</span>
                 </div>
                 <div class="text-center p-2 gold-border bg-panel flex flex-col justify-center">
-                    <span class="text-c_l4 font-bold text-sm">L4</span>
-                    <span class="text-[8px] text-slate-400 uppercase tracking-wider mt-1">Infrastructure /<br/>Oracles</span>
+                    <span class="text-c_l4 font-bold text-sm">L4</span><span class="text-[8px] text-slate-400 uppercase tracking-wider mt-1">Infrastructure /<br/>Oracles</span>
                 </div>
                 <div class="text-center p-2 gold-border bg-panel flex flex-col justify-center">
-                    <span class="text-c_l5 font-bold text-sm">L5</span>
-                    <span class="text-[8px] text-slate-400 uppercase tracking-wider mt-1">Monetary /<br/>Stable Value</span>
+                    <span class="text-c_l5 font-bold text-sm">L5</span><span class="text-[8px] text-slate-400 uppercase tracking-wider mt-1">Monetary /<br/>Stable Value</span>
                 </div>
                 <div class="text-center p-2 gold-border bg-panel flex flex-col justify-center">
-                    <span class="text-c_l6 font-bold text-sm">L6</span>
-                    <span class="text-[8px] text-slate-400 uppercase tracking-wider mt-1">Cultural /<br/>Speculative</span>
+                    <span class="text-c_l6 font-bold text-sm">L6</span><span class="text-[8px] text-slate-400 uppercase tracking-wider mt-1">Cultural /<br/>Speculative</span>
                 </div>
-
                 <div class="flex flex-col items-center justify-center p-2 gold-border bg-panel text-center">
                     <span class="text-[10px] text-slate-400 uppercase tracking-widest leading-tight">Gravity<br/>Description</span>
                 </div>
@@ -399,20 +314,26 @@
                     </div>
                 `;
 
-                const rowElements = elements.filter(e => e.gravity === level.g);
+                const rowElements = elementsData.filter(e => e.gravity === level.g);
                 rowElements.forEach(el => {
+                    const matchSearch = el.name.toLowerCase().includes(searchVal) || el.id.toLowerCase().includes(searchVal);
+                    const matchFilter = filterVal === 'ALL' || el.gravity === filterVal;
+                    const isDimmed = !(matchSearch && matchFilter);
+                    
+                    if(!isDimmed) activeCount++;
+
                     html += `
-                        <div class="element-card group border-${el.col}">
+                        <div class="element-card border-${el.col} ${isDimmed ? 'dimmed' : ''}" onclick="openModal('${el.id}')">
                             <div class="tooltip-fade absolute -top-8 left-1/2 -translate-x-1/2 bg-panel border border-borderCol text-[8px] text-gold px-2 py-1.5 rounded shadow-xl whitespace-nowrap z-20 font-mono tracking-widest uppercase">
-                                [ Calc: ${el.formula} ]
+                                View Details
                             </div>
                             <div class="absolute top-1 left-2 text-[10px] text-slate-400 font-mono">${el.num}</div>
                             <div class="absolute top-1 right-2 text-[10px] text-slate-400 font-mono">${el.val}</div>
-                            <div class="mt-2 text-center">
+                            <div class="mt-2 text-center pointer-events-none">
                                 <h2 class="text-2xl font-bold font-serif mt-1 text-${el.col}">${el.id}</h2>
                                 <p class="text-[10px] text-slate-200 uppercase tracking-wide mt-1">${el.name}</p>
                             </div>
-                            <div class="mt-auto pt-2 flex justify-between items-end text-[8px] text-slate-400 font-mono">
+                            <div class="mt-auto pt-2 flex justify-between items-end text-[8px] text-slate-400 font-mono pointer-events-none">
                                 <span>${el.layer} • ${el.gravity}</span>
                                 <span>${el.mc}</span>
                             </div>
@@ -428,6 +349,88 @@
             });
 
             document.getElementById('periodic-table-grid').innerHTML = html;
+            document.getElementById('resultsCount').innerText = `${activeCount} Elements`;
+        }
+
+        // Modal Logic
+        function openModal(elementId) {
+            const el = elementsData.find(e => e.id === elementId);
+            if(!el) return;
+
+            const modalBody = `
+                <div class="flex items-center gap-4 border-b border-borderCol pb-4 mb-4">
+                    <div class="w-16 h-16 rounded border border-${el.col} flex items-center justify-center text-${el.col} font-bold font-serif text-3xl bg-panel">
+                        ${el.id}
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-100 uppercase tracking-widest">${el.name}</h2>
+                        <p class="text-xs text-gold font-mono tracking-widest uppercase">${el.layerFull}</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="bg-[#0B1120] p-3 rounded border border-borderCol">
+                        <div class="text-[9px] text-slate-500 font-mono uppercase tracking-widest mb-1">Systemic Gravity (G)</div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-slate-200">${el.gravity}</span>
+                            <span class="text-xs text-gold font-mono border border-gold/30 px-2 py-0.5 rounded bg-gold/10">${el.formula}</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#0B1120] p-3 rounded border border-borderCol">
+                        <div class="text-[9px] text-slate-500 font-mono uppercase tracking-widest mb-1">Network Density Breakdown</div>
+                        <p class="text-sm text-slate-300">${el.density}</p>
+                    </div>
+
+                    <div class="bg-[#0B1120] p-3 rounded border border-borderCol flex justify-between items-center">
+                        <div>
+                            <div class="text-[9px] text-slate-500 font-mono uppercase tracking-widest mb-1">Functional Valency</div>
+                            <span class="text-lg font-bold text-${el.col}">${el.val}</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[9px] text-slate-500 font-mono uppercase tracking-widest mb-1">Market Cap</div>
+                            <span class="text-lg font-bold text-slate-200">${el.mc}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('modalBody').innerHTML = modalBody;
+            const modal = document.getElementById('elementModal');
+            const box = document.getElementById('modalContentBox');
+            
+            modal.classList.remove('hidden');
+            // Allow display:flex to apply before triggering opacity for animation
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                box.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('elementModal');
+            const box = document.getElementById('modalContentBox');
+            
+            modal.classList.add('opacity-0');
+            box.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Close modal on background click
+        document.getElementById('elementModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Initialize Search & Filter
+        document.getElementById('searchInput').addEventListener('input', renderTable);
+        document.getElementById('filterGravity').addEventListener('change', renderTable);
+
+        // Initial Render
+        document.addEventListener("DOMContentLoaded", () => {
+            renderTable();
         });
     </script>
 </body>
