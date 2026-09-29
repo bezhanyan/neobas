@@ -3,552 +3,537 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neobas - Wisdom in Tech, Success in Business!</title>
-    <link rel="icon" type="image/svg+xml" href="https://neobas.co/nlogo.png" id="favicon-svg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>NEOBAS | Global Architecture</title>
+    <link rel="icon" type="image/svg+xml" href="https://neobas.co/nlogo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Noto+Serif:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for standard icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* Main Theme Variables - Completely Dark */
         :root {
-            --bg-page: #0b1120; /* Fully dark edges */
-            --bg-main: #0b1120; /* Deep premium dark center */
-            --bg-secondary: #162032;
-            --bg-card: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            /* Khanjyan Inspired Monumental Palette */
+            --khanjyan-red: #b33923;      /* Terracotta / Armenian Red */
+            --khanjyan-blue: #1f4a7c;     /* Deep Azure / Ultramarine */
+            --khanjyan-ochre: #d49a36;    /* Sun-baked Ochre / Gold */
+            --khanjyan-green: #2e6b4a;    /* Earthy robust green */
             
-            /* Framework Accents */
-            --accent-blue: #3b82f6; /* Base Blue */
-            --accent-emerald: #10b981; 
-            --accent-saryan-orange: #E85D04; /* NeoGenesys Primary */
-            --accent-saryan-yellow: #F59E0B;
-            --accent-hydro: #06b6d4; /* Hydro Logos Cyan */
+            --bg-canvas: #fdfbf7;         /* Warm parchment / sand */
+            --card-bg: #ffffff;
+            --text-dark: #2b2621;         /* Deep charcoal for readability */
+            --text-muted: #5c554e;
+            --border-color: #e5dac7;
             
-            --border-color: rgba(255, 255, 255, 0.08);
-            --font-heading: 'Merriweather', serif;
-            --font-body: 'Inter', sans-serif;
+            --font-title: 'Cinzel', serif;
+            --font-body: 'Noto Serif', serif;
         }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-
-        /* Ensures anchors don't hide behind the sticky navbar */
-        html { scroll-padding-top: 85px; }
 
         body {
-            font-family: var(--font-body); 
-            background-color: var(--bg-page); /* Completely dark background */
-            color: var(--text-main); 
-            line-height: 1.6; 
-            -webkit-font-smoothing: antialiased;
-            padding: 0; 
+            margin: 0; padding: 0;
+            background-color: var(--bg-canvas);
+            color: var(--text-dark);
+            font-family: var(--font-body);
             overflow-x: hidden;
+            line-height: 1.7;
+            /* Subtle paper texture */
+            background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23d49a36" fill-opacity="0.03"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
         }
 
-        /* --- The Main Wrapper --- */
-        .main-wrapper {
-            max-width: 1280px;
+        /* --- GLOBAL SVG DEFS --- */
+        .svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
+
+        .container {
+            max-width: 1100px;
             margin: 0 auto;
-            background-color: var(--bg-main);
-            box-shadow: none; /* Removed the boxed shadow/border for a seamless dark look */
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            overflow: hidden; 
+            padding: 0 20px;
         }
 
-        /* --- Announcement Bar --- */
-        .announcement-bar {
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-saryan-orange));
-            color: white; text-align: center; padding: 12px 20px; font-size: 14px; 
-            font-weight: 500; z-index: 2000; position: relative;
-        }
-        .announcement-bar a { color: white; text-decoration: underline; font-weight: 700; margin-left: 10px; }
-
-        /* --- Navbar --- */
+        /* --- NAVBAR --- */
         .navbar {
-            position: sticky; top: 0; width: 100%; background: rgba(11, 17, 32, 0.85);
+            position: sticky; top: 0; width: 100%; background: rgba(253, 251, 247, 0.9);
             backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color);
             z-index: 1000; transition: all 0.3s ease;
         }
-        .nav-container { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
-        
+        .nav-container { padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
         .logo { display: flex; align-items: center; text-decoration: none; gap: 12px; }
-        .logo img { height: 40px; width: auto; }
-        .logo-text { font-family: 'Neo Sans', 'Inter', sans-serif; font-size: 26px; font-weight: 700; color: white; letter-spacing: 0.5px; }
-        
-        .nav-links { display: flex; gap: 30px; list-style: none; align-items: center;}
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 15px; transition: color 0.3s; text-transform: uppercase; letter-spacing: 1px; }
-        .nav-links a:hover { color: var(--text-main); }
-        .nav-btn { background: var(--accent-blue); color: white !important; padding: 10px 20px; border-radius: 6px; font-weight: 600; transition: background 0.3s; }
-        .nav-btn:hover { background: #2563eb !important; }
+        .logo-text { font-family: var(--font-title); font-size: 26px; font-weight: 900; color: var(--khanjyan-blue); letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; margin:0; padding:0;}
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 700; font-family: var(--font-title); font-size: 14px; transition: color 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover { color: var(--khanjyan-red); }
+        .nav-btn { background: var(--khanjyan-ochre); color: white !important; padding: 10px 20px; border-radius: 30px; font-weight: 700; transition: background 0.3s; border: none; box-shadow: 0 4px 10px rgba(212, 154, 54, 0.3);}
+        .nav-btn:hover { background: var(--khanjyan-red) !important; transform: translateY(-2px);}
 
-        /* --- Layout Elements --- */
-        section { padding: 100px 40px; width: 100%; margin: 0 auto; }
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 80px 20px 80px;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            position: relative;
+        }
+
+        .main-title {
+            font-family: var(--font-title); font-size: 72px; font-weight: 900;
+            color: var(--khanjyan-blue); margin: 0; letter-spacing: 8px;
+            display: flex; justify-content: center; gap: 5px;
+        }
+        
+        .main-title span { transition: color 0.3s; }
+        .main-title span:nth-child(1):hover { color: var(--khanjyan-red); }
+        .main-title span:nth-child(2):hover { color: var(--khanjyan-ochre); }
+        .main-title span:nth-child(3):hover { color: var(--khanjyan-green); }
+
+        .acronym-expansion {
+            font-family: var(--font-title); font-size: 18px;
+            color: var(--khanjyan-red); margin: 15px 0 40px 0;
+            letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
+        }
+        .acronym-expansion span { color: var(--text-muted); font-weight: 400; font-size: 15px; margin: 0 5px;}
+
+        .hero-desc {
+            max-width: 800px; font-size: 22px; color: var(--text-dark);
+            margin: 0 auto 40px auto; font-style: italic;
+        }
+
+        /* CTA Buttons */
+        .hero-ctas {
+            display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--khanjyan-red), #912b1a);
+            color: white; padding: 18px 35px; font-size: 16px; font-family: var(--font-title);
+            text-transform: uppercase; letter-spacing: 1px; border: none; border-radius: 40px;
+            cursor: pointer; text-decoration: none; font-weight: 700;
+            box-shadow: 0 10px 25px rgba(179, 57, 35, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-flex; align-items: center; justify-content: center; gap: 15px;
+        }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(179, 57, 35, 0.5); }
+        .cta-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; }
+        
+        .cta-btn .lang-badge {
+            background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 20px;
+            font-size: 12px; letter-spacing: 2px; border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .cta-btn-secondary {
+            background: transparent; color: var(--khanjyan-blue);
+            padding: 16px 30px; font-size: 15px; font-family: var(--font-title);
+            text-transform: uppercase; letter-spacing: 1px;
+            border: 2px solid var(--khanjyan-blue); border-radius: 40px;
+            cursor: pointer; text-decoration: none; font-weight: 700;
+            transition: all 0.3s; display: inline-flex; align-items: center;
+            justify-content: center; gap: 10px;
+        }
+        .cta-btn-secondary:hover {
+            background: rgba(31, 74, 124, 0.05); transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(31, 74, 124, 0.1);
+        }
+
+        /* --- VERTICAL INTEGRATION (EARTH TO SKY) --- */
+        .integration-section { padding: 80px 0; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-family: var(--font-heading); font-size: 40px; margin-bottom: 15px; color: white; }
-        .section-header p { color: var(--text-muted); font-size: 18px; max-width: 700px; margin: 0 auto; }
+        .section-title { font-family: var(--font-title); font-size: 36px; color: var(--khanjyan-blue); margin: 0 0 10px 0; }
+        .section-subtitle { font-size: 18px; color: var(--khanjyan-red); margin: 0; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;}
 
-        /* --- Hero --- */
-        .hero { padding: 120px 20px 100px; text-align: center; position: relative; overflow: hidden; }
-        .hero::before {
-            content: ''; position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
-            width: 800px; height: 800px; background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(2, 6, 23, 0) 70%);
-            border-radius: 50%; z-index: -1;
+        .earth-to-sky-schema { display: flex; flex-direction: column; align-items: center; max-width: 900px; margin: 0 auto; position: relative; }
+        .schema-node { 
+            background: var(--card-bg); border: 1px solid var(--border-color); 
+            border-radius: 12px; padding: 30px; width: 100%; display: flex; align-items: center; gap: 30px; 
+            position: relative; z-index: 2; box-shadow: 0 10px 30px rgba(0,0,0,0.04); box-sizing: border-box;
         }
-        .hero-badge {
-            display: inline-block; background: transparent; color: #60a5fa; 
-            padding: 8px 24px; border-radius: 30px; font-size: 13px; font-weight: 700; 
-            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px; 
-            border: 1px solid rgba(59, 130, 246, 0.4);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
+        .schema-node.sky { border-top: 6px solid var(--khanjyan-ochre); }
+        .schema-node.bridge { border-top: 6px solid var(--khanjyan-blue); }
+        .schema-node.earth { border-top: 6px solid var(--khanjyan-red); }
+        
+        .schema-line { width: 4px; height: 40px; background: var(--border-color); z-index: 1; margin: -5px 0;}
+        
+        .schema-icon { width: 80px; height: 80px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--bg-canvas); border: 2px solid var(--border-color);}
+        .schema-icon svg { width: 40px; height: 40px; }
+        .sky .schema-icon svg { stroke: var(--khanjyan-ochre); }
+        .bridge .schema-icon svg { stroke: var(--khanjyan-blue); }
+        .earth .schema-icon svg { stroke: var(--khanjyan-red); }
+
+        .schema-text h3 { margin: 0 0 8px 0; font-size: 24px; font-family: var(--font-title); color: var(--text-dark); }
+        .schema-text p { margin: 0; font-size: 16px; color: var(--text-muted); }
+        .schema-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+
+        /* --- THE MANIFESTO (KOI PARADOX) --- */
+        .manifesto-section { padding: 80px 0; background: #ffffff; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+        
+        .manifesto-text { max-width: 850px; margin: 0 auto 40px auto; text-align: justify; font-size: 18px; }
+        .drop-cap::first-letter { float: left; font-size: 4em; line-height: 0.8; padding-top: 4px; padding-right: 8px; font-family: var(--font-title); color: var(--khanjyan-red); font-weight: bold; }
+
+        .koi-paradox-graphic {
+            margin: 40px auto; width: 100%; max-width: 1000px; text-align: center;
+            border: 1px solid var(--border-color); border-radius: 12px; padding: 40px;
+            background: var(--bg-canvas); box-shadow: inset 0 0 20px rgba(0,0,0,0.03);
+            box-sizing: border-box;
         }
-        .hero h1 { font-family: var(--font-heading); font-size: 64px; line-height: 1.15; margin-bottom: 25px; color: white; letter-spacing: -1px;}
-        .hero p { font-size: 20px; color: #cbd5e1; max-width: 800px; margin: 0 auto 40px; line-height: 1.7; font-weight: 400; }
-        .hero-cta { display: inline-flex; gap: 20px; justify-content: center; margin-top: 10px; }
-        
-        .btn-primary {
-            background-color: var(--accent-blue); color: white; padding: 16px 32px; border-radius: 8px; font-size: 18px; font-weight: 600;
-            text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); border: none; cursor: pointer;
-            display: inline-flex; align-items: center; justify-content: center; text-align: center;
+
+        /* --- THE ALGOLOG NEOLOGISM SECTION --- */
+        .algolog-section {
+            padding: 80px 20px;
+            background: linear-gradient(to bottom, #ffffff 0%, var(--bg-canvas) 100%);
+            border-bottom: 1px solid var(--border-color);
         }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6); }
-        .btn-secondary { background-color: rgba(255, 255, 255, 0.05); color: white; border: 1px solid var(--border-color); padding: 16px 32px; border-radius: 8px; font-size: 18px; font-weight: 600; text-decoration: none; transition: background 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
-        .btn-secondary:hover { background-color: rgba(255, 255, 255, 0.1); }
-
-        /* --- DUAL PILLARS SECTION --- */
-        .dual-pillars {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 60px;
+        
+        .algolog-container {
+            max-width: 900px; margin: 0 auto;
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 50px; text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05); position: relative;
+            overflow: hidden;
         }
-        .pillar-card {
-            background: var(--bg-secondary); border-radius: 16px; padding: 50px 40px;
-            border: 1px solid var(--border-color); position: relative; overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column;
-            text-decoration: none; color: var(--text-main);
+        
+        .algolog-container::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--khanjyan-blue), var(--khanjyan-ochre));
         }
-        .pillar-card:hover { transform: translateY(-5px); }
-        .pillar-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+
+        .neo-tag {
+            display: inline-block; background: rgba(31, 74, 124, 0.1); color: var(--khanjyan-blue);
+            padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;
+            border: 1px solid rgba(31, 74, 124, 0.2);
         }
-        .pillar-ng { box-shadow: 0 15px 35px rgba(232, 93, 4, 0.05); }
-        .pillar-ng:hover { border-color: var(--accent-saryan-orange); box-shadow: 0 15px 35px rgba(232, 93, 4, 0.15); }
-        .pillar-ng::before { background-color: var(--accent-saryan-orange); }
+
+        .algolog-container h2 {
+            font-family: var(--font-title); font-size: 42px; color: var(--khanjyan-blue);
+            margin: 0 0 10px 0;
+        }
+
+        .algolog-author {
+            font-size: 16px; color: var(--text-muted); font-style: italic; margin-bottom: 40px;
+        }
+
+        .algolog-graphic {
+            margin: 0 auto 40px auto; width: 100%; max-width: 400px;
+        }
+
+        .algolog-text {
+            font-size: 18px; color: var(--text-dark); line-height: 1.8; text-align: justify;
+        }
+
+        .algolog-equation {
+            font-family: var(--font-title); font-size: 22px; color: var(--khanjyan-red);
+            margin: 25px 0; text-align: center; font-weight: bold;
+            background: rgba(179, 57, 35, 0.05); padding: 15px; border-radius: 8px;
+        }
+
+        /* --- THE ARCHITECTURE LAYERS --- */
+        .layers-section { padding: 80px 0; }
+        .layers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 1000px; margin: 0 auto; }
         
-        .pillar-hydro { box-shadow: 0 15px 35px rgba(6, 182, 212, 0.05); }
-        .pillar-hydro:hover { border-color: var(--accent-hydro); box-shadow: 0 15px 35px rgba(6, 182, 212, 0.15); }
-        .pillar-hydro::before { background-color: var(--accent-hydro); }
-
-        .pillar-card h3 { font-family: var(--font-heading); font-size: 32px; color: white; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; }
-        .pillar-card p { font-size: 18px; color: var(--text-muted); margin-bottom: 30px; flex-grow: 1; }
-        .pillar-link { font-weight: 700; font-size: 16px; display: inline-flex; align-items: center; gap: 8px; }
-        .pillar-ng .pillar-link { color: var(--accent-saryan-orange); }
-        .pillar-hydro .pillar-link { color: var(--accent-hydro); }
-
-        /* --- NeoGenesys Program --- */
-        .service-box { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 60px; margin-bottom: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .service-tag { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 20px; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; background: rgba(232, 93, 4, 0.1); color: var(--accent-saryan-orange); border: 1px solid rgba(232, 93, 4, 0.3); }
-        .tag-hydro { background: rgba(6, 182, 212, 0.1); color: var(--accent-hydro); border-color: rgba(6, 182, 212, 0.3); }
+        .layer-box { background: var(--card-bg); padding: 40px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .layer-box.l2 { border-bottom: 6px solid var(--khanjyan-blue); }
+        .layer-box.l3 { border-bottom: 6px solid var(--khanjyan-green); }
         
-        .service-box h3 { font-family: var(--font-heading); font-size: 36px; margin-bottom: 20px; color: white; line-height: 1.3;}
-        .service-desc { font-size: 18px; color: var(--text-muted); margin-bottom: 50px; max-width: 900px;}
+        .layer-box h3 { font-family: var(--font-title); font-size: 24px; margin: 0 0 15px 0; color: var(--text-dark); }
+        .layer-box .layer-tag { font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; }
+        .layer-box.l2 .layer-tag { color: var(--khanjyan-blue); }
+        .layer-box.l3 .layer-tag { color: var(--khanjyan-green); }
+
+        /* --- BULKIAI CORE (STANDALONE) --- */
+        .bulkiai-core {
+            margin: 80px auto; max-width: 900px; background: var(--khanjyan-blue); color: #fff;
+            border-radius: 16px; padding: 60px; text-align: center; position: relative;
+            box-shadow: 0 20px 50px rgba(31, 74, 124, 0.3); overflow: hidden;
+        }
+        .bulkiai-core::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 10px;
+            background: linear-gradient(90deg, var(--khanjyan-red), var(--khanjyan-ochre), var(--khanjyan-green));
+        }
+        .bulkiai-core h2 { font-family: var(--font-title); font-size: 42px; margin: 0 0 20px 0; color: var(--khanjyan-ochre); }
+        .bulkiai-core p { font-size: 18px; color: rgba(255,255,255,0.9); margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto;}
         
-        .neo-6-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 50px; }
-        .neo-step-card { background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 12px; padding: 30px 25px; transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: column; position: relative; overflow: hidden;}
-        
-        /* Colored top borders for Saryan feel */
-        .neo-step-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
-        .card-c1::before { background-color: var(--accent-saryan-orange); }
-        .card-c2::before { background-color: var(--accent-emerald); }
-        .card-c3::before { background-color: var(--accent-saryan-yellow); }
-        .card-c4::before { background-color: var(--accent-blue); }
-        .card-c5::before { background-color: #8b5cf6; }
-        .card-c6::before { background-color: var(--accent-saryan-orange); }
+        .core-btn {
+            background: var(--khanjyan-ochre); color: var(--text-dark);
+            padding: 18px 40px; font-size: 16px; font-family: var(--font-title);
+            text-transform: uppercase; letter-spacing: 2px; border: none; border-radius: 40px;
+            cursor: pointer; text-decoration: none; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 15px;
+            transition: all 0.3s;
+        }
+        .core-btn:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .core-btn svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; }
 
-        .neo-step-card:hover { transform: translateY(-5px); border-color: var(--text-muted); }
-        .neo-step-card h4 { font-family: var(--font-heading); font-size: 20px; margin-bottom: 15px; font-weight: 700; color: white;}
-        .neo-step-card p { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 10px; font-family: var(--font-body); }
-        .sub-tag { color: var(--text-muted); font-size: 14px; font-weight: 500; margin-bottom: 25px; display: block; font-family: monospace;}
-        
-        .neo-svg-wrapper { width: 100%; height: 150px; display: flex; justify-content: center; align-items: center; margin-top: auto; }
-        .neo-svg-wrapper svg { width: 100%; height: 100%; }
+        footer { text-align: center; padding: 40px; font-size: 14px; color: var(--text-muted); border-top: 1px solid var(--border-color); }
 
-        .demo-btn { display: inline-flex; align-items: center; gap: 10px; background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); padding: 15px 30px; border-radius: 8px; font-size: 18px; font-weight: 700; border: 1px solid rgba(59, 130, 246, 0.3); cursor: pointer; transition: all 0.3s; text-decoration: none; justify-content: center;}
-        .demo-btn:hover { background: rgba(59, 130, 246, 0.2); transform: translateY(-2px); }
-        
-        .rus-link { color: #94a3b8; font-size: 16px; font-style: italic; text-decoration: underline; transition: color 0.3s; display: inline-flex; align-items: center; gap: 8px;}
-        .rus-link:hover { color: #f1f5f9; }
-
-        /* --- NeoLogos Section (Teaser) --- */
-        .hydro-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
-        .hydro-feature { background: rgba(6, 182, 212, 0.05); border: 1px solid rgba(6, 182, 212, 0.2); border-radius: 12px; padding: 30px; text-align: left; transition: transform 0.3s;}
-        .hydro-feature:hover { transform: translateY(-5px); border-color: var(--accent-hydro); }
-        .hydro-feature i { color: var(--accent-hydro); font-size: 32px; margin-bottom: 20px; }
-        .hydro-feature h4 { color: white; font-family: var(--font-heading); font-size: 20px; margin-bottom: 10px; }
-
-        /* --- About --- */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .about-text h3 { font-family: var(--font-heading); font-size: 32px; margin-bottom: 20px; line-height: 1.3; }
-        .about-text p { font-size: 18px; color: var(--text-muted); margin-bottom: 20px; }
-        .about-image { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px; position: relative; text-align: center;}
-
-        /* --- Contact --- */
-        .contact-section { background: var(--bg-secondary); border-radius: 20px; padding: 80px 40px; text-align: center; border: 1px solid var(--border-color); }
-
-        /* --- Footer --- */
-        footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 15px; }
-
-        /* ==================================================== */
-        /* MOBILE RESPONSIVE FIXES (Կրիտիկական Մոբայլ Ադապտացիա)*/
-        /* ==================================================== */
         @media (max-width: 900px) {
-            .dual-pillars, .about-grid, .neo-6-grid, .hydro-features { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 42px; line-height: 1.2; }
-            .hero p { font-size: 18px; }
-            
-            /* Responsive Buttons in Hero */
-            .hero-cta { flex-direction: column; width: 100%; gap: 15px; }
-            .hero-cta a, .hero-cta button { width: 100%; justify-content: center; }
-            
             .nav-links { display: none; }
-            section { padding: 60px 20px; }
-            
-            /* Overriding inline styles for mobile responsiveness */
-            .section-header h2 { font-size: 32px !important; }
-            .service-box h3 { font-size: 28px !important; line-height: 1.3 !important; }
-            
-            /* Responsive fixes for Contact section */
-            .contact-section { padding: 50px 20px !important; }
-            .contact-section h2 { font-size: 30px !important; line-height: 1.3 !important; }
-            .contact-section p { font-size: 16px !important; margin-bottom: 30px !important; }
-            
-            /* The specific fix for ALL buttons on mobile */
-            .btn-primary, .demo-btn, .btn-secondary { 
-                width: 100% !important; 
-                display: flex !important;
-                justify-content: center !important;
-                padding: 16px 20px !important; 
-                font-size: 18px !important; 
-                box-sizing: border-box !important;
-                text-align: center !important;
-            }
+            .hero-ctas { flex-direction: column; width: 100%; gap: 15px; }
+            .hero-ctas a { width: 100%; box-sizing: border-box; justify-content: center; }
+        }
 
-            .service-box > div > .btn-primary, 
-            .service-box > div > .demo-btn {
-                font-size: 16px !important;
-            }
+        @media (max-width: 800px) {
+            .main-title { font-size: 50px; }
+            .acronym-expansion { font-size: 12px; }
+            .schema-node { flex-direction: column; text-align: center; }
+            .layers-grid { grid-template-columns: 1fr; }
+            .bulkiai-core { padding: 40px 20px; }
         }
     </style>
 </head>
 <body>
 
-<div class="main-wrapper">
+    <!-- SVG DEFS (Hidden) -->
+    <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <marker id="arrowKoi" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L9,3 z" fill="var(--khanjyan-ochre)" />
+            </marker>
+            <marker id="arrowGreenKoi" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L9,3 z" fill="var(--khanjyan-green)" />
+            </marker>
+        </defs>
+    </svg>
 
-    <!-- Navbar -->
+    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">
-                <img src="https://neobas.co/nlogo.png" alt="Neobas Logo" style="height: 40px; width: auto;">
+            <a href="index.html" class="logo">
+                <span class="logo-text">N.E.O.B.A.S.</span>
             </a>
             <ul class="nav-links">
-                <li><a href="#neogenesys">NeoGenesys</a></li>
-                <li><a href="#neologos">NeoLogos</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="contact.html" class="nav-btn">Contact Us</a></li>
+                <li><a href="cv-hub.html">The Architect</a></li>
+                <li><a href="neogenesys.html">NeoGenesys™</a></li>
+                <li><a href="bulkiai.html">BulkiAI Core</a></li>
+                <li><a href="manifesto.html" class="nav-btn">Manifesto</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <section class="hero" id="home">
-        <div class="hero-badge">Welcome to Neobas</div>
-        <h1>Wisdom in Tech,<br><span style="color: #3b82f6;">Success in Business!</span></h1>
-        <p>We build the resilient body and the intelligent brain of modern enterprises. From untangling legacy architecture to orchestrating autonomous AI operations, Neobas is your partner in ultimate digital sovereignty.</p>
-        <div class="hero-cta">
-            <a href="#frameworks" class="btn-primary">Explore Our Frameworks</a>
-            <a href="diagnostic.html" class="btn-secondary"><i class="fa-solid fa-bolt" style="color: #F59E0B;"></i> Enterprise Diagnostic</a>
-        </div>
-    </section>
-
-    <!-- Dual Pillar Intro -->
-    <section id="frameworks" style="padding-top: 40px; padding-bottom: 20px;">
-        <div class="section-header">
-            <h2>The Dual Engine of Enterprise Autonomy</h2>
-            <p>Our methodology is split into two flagship frameworks. One rebuilds your structural core; the other introduces automated cognitive intelligence.</p>
-        </div>
-
-        <div class="dual-pillars">
-            <!-- NeoGenesys Card -->
-            <a href="#neogenesys" class="pillar-card pillar-ng">
-                <h3><i class="fa-solid fa-sitemap" style="color: var(--accent-saryan-orange);"></i> NeoGenesys™</h3>
-                <p><strong>Digital Architecture & Transformation.</strong> The framework for eradicating legacy technical debt. We transition monolithic structures into highly scalable, microservices-based ecosystems managed by Agile squads.</p>
-                <span class="pillar-link">Explore NeoGenesys <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
-            
-            <!-- NeoLogos Card -->
-            <a href="#neologos" class="pillar-card pillar-hydro">
-                <h3><i class="fa-solid fa-brain" style="color: var(--accent-hydro);"></i> NeoLogos™</h3>
-                <p><strong>LLM Operating System.</strong> The framework for cognitive automation. We integrate Large Language Models deeply into corporate workflows, transforming static data into intelligent, autonomous agents.</p>
-                <span class="pillar-link">Discover NeoLogos <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
-        </div>
-    </section>
-
-    <!-- The Flagship Program (NeoGenesys) -->
-    <section id="neogenesys">
-        <div class="service-box">
-            <div class="service-tag tag-genesys"><i class="fa-solid fa-bolt"></i> Enterprise Architecture</div>
-            <h3>NeoGenesys™: Platform-Centric Ecosystems</h3>
-            <p class="service-desc">
-                Our proprietary blueprint for enterprise digital transformation. We guide organizations through a meticulously structured journey: transitioning from high-latency, legacy-centric monoliths to highly scalable, autonomous digital ecosystems.
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="main-title">
+                <span>N</span>.<span>E</span>.<span>O</span>.<span>B</span>.<span>A</span>.<span>S</span>.
+            </h1>
+            <div class="acronym-expansion">
+                Neural <span>|</span> Exoskeleton <span>&</span> Ontological <span>|</span> Base <span>for</span> Algolog <span>|</span> Synthesis
+            </div>
+            <p class="hero-desc">
+                The architecture of humanity's informational survival. We elevate neural networks from mere computational engines into a comprehensive <b>Mental Exoskeleton</b>, synthesizing machine determinism with human reflection to safeguard civilizational meaning.
             </p>
+            
+            <div class="hero-ctas">
+                <a href="manifesto.html" class="cta-btn">
+                    Read The Manifesto
+                    <span class="lang-badge">EN | HY | RU</span>
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="neogenesys.html" class="cta-btn-secondary">
+                    <i class="fa-solid fa-sitemap"></i> NeoGenesys™
+                </a>
+                <a href="cv-hub.html" class="cta-btn-secondary">
+                    <i class="fa-solid fa-id-badge"></i> The Architect
+                </a>
+            </div>
+        </div>
+    </section>
 
-            <!-- Custom 6-Grid with Saryan Colored Borders -->
-            <div class="neo-6-grid">
+    <!-- EARTH TO SKY SCHEMA -->
+    <section class="integration-section">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Vertical Ontological Integration</p>
+                <h2 class="section-title">The Earth-to-Sky Mechanism</h2>
+                <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto;">How does this architecture save neural networks from a semantic void?</p>
+            </div>
+
+            <div class="earth-to-sky-schema">
+                <!-- Sky / Vision -->
+                <div class="schema-node sky">
+                    <div class="schema-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><path d="M12 2v20"></path><path d="M2 12h20"></path></svg>
+                    </div>
+                    <div class="schema-text">
+                        <span class="schema-badge" style="background: rgba(212, 154, 54, 0.1); color: var(--khanjyan-ochre);">III. Teleological Horizon</span>
+                        <h3>Semantic Zenith (The Vision)</h3>
+                        <p>The highest purpose: to transform the neural network from a simple calculator into a "Mental Exoskeleton" where technology acts as the ultimate protector of intricate human meanings.</p>
+                    </div>
+                </div>
                 
-                <!-- Card 1 -->
-                <div class="neo-step-card card-c1">
-                    <h4 style="color: var(--accent-saryan-orange);">1. Concept Summary</h4>
-                    <p>Formulation of a comprehensive project mandate, delivering an executive mindmap of the 'Why' and 'How' behind your digital transformation.</p>
-                    <span class="sub-tag">{Mindmap of Why and How}</span>
-                    <div class="neo-svg-wrapper">
-                        <svg viewBox="0 0 200 120">
-                            <line x1="100" y1="60" x2="40" y2="60" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <line x1="100" y1="60" x2="50" y2="25" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <line x1="100" y1="60" x2="50" y2="95" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <line x1="100" y1="60" x2="160" y2="60" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <line x1="100" y1="60" x2="150" y2="25" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <line x1="100" y1="60" x2="150" y2="95" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <rect x="20" y="15" width="30" height="15" rx="3" fill="#14b8a6"/>
-                            <rect x="10" y="52" width="30" height="15" rx="3" fill="#8b5cf6"/>
-                            <rect x="20" y="87" width="30" height="15" rx="3" fill="#8b5cf6" opacity="0.6"/>
-                            <rect x="150" y="15" width="30" height="15" rx="3" fill="#8b5cf6"/>
-                            <rect x="160" y="52" width="30" height="15" rx="3" fill="#14b8a6" opacity="0.6"/>
-                            <rect x="150" y="87" width="30" height="15" rx="3" fill="#14b8a6"/>
-                            <circle cx="100" cy="60" r="22" fill="#0f172a" stroke="#cbd5e1" stroke-width="1"/>
-                            <path d="M100,45 C90,45 85,55 85,60 C85,65 90,75 100,75 C110,75 115,65 115,60 C115,55 110,45 100,45 Z" fill="none" stroke="#14b8a6" stroke-width="1.5"/>
-                            <path d="M100,42 L100,78" stroke="#cbd5e1" stroke-width="1"/>
-                        </svg>
+                <div class="schema-line"></div>
+                
+                <!-- Bridge / Mission -->
+                <div class="schema-node bridge">
+                    <div class="schema-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    </div>
+                    <div class="schema-text">
+                        <span class="schema-badge" style="background: rgba(31, 74, 124, 0.1); color: var(--khanjyan-blue);">II. Cognitive Imperative</span>
+                        <h3>Emanational Bridge (The Mission)</h3>
+                        <p>The mechanism of connection: Synthesizing machine determinism with profound human reflection, thereby halting informational entropy and forging universal knowledge.</p>
                     </div>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="neo-step-card card-c2">
-                    <h4 style="color: var(--accent-emerald);">2. Design & Architecture</h4>
-                    <p>Transitioning from monolithic models to Platform-centric designs. We implement Domain-Driven Design (DDD) to create manageable domains.</p>
-                    <span class="sub-tag">{Domain Driven Design}</span>
-                    <div class="neo-svg-wrapper">
-                        <svg viewBox="0 0 200 120">
-                            <g transform="translate(100, 20) scale(0.8)">
-                                <path d="M 0,30 L 30,0 L 60,30 L 30,60 Z" fill="#8b5cf6" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
-                                <path d="M -30,60 L 0,30 L 30,60 L 0,90 Z" fill="#14b8a6" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
-                                <path d="M 30,60 L 60,30 L 90,60 L 60,90 Z" fill="#14b8a6" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
-                                <path d="M 0,90 L 30,60 L 60,90 L 30,120 Z" fill="#8b5cf6" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
-                                <path d="M -60,30 L -30,0 L 0,30 L -30,60 Z" fill="none" stroke="#14b8a6" stroke-width="2"/>
-                            </g>
-                        </svg>
+                <div class="schema-line"></div>
+                
+                <!-- Earth / Targets -->
+                <div class="schema-node earth">
+                    <div class="schema-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"></path></svg>
                     </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="neo-step-card card-c3">
-                    <h4 style="color: var(--accent-saryan-yellow);">3. Microservices Library</h4>
-                    <p>Designing a strict technical architecture that maps out isolated, scalable microservices across Identity, Operations, and Financial ecosystems.</p>
-                    <span class="sub-tag">{Technology Landscape Analysis}</span>
-                    <div class="neo-svg-wrapper">
-                        <svg viewBox="0 0 200 120">
-                            <rect x="50" y="45" width="100" height="30" rx="15" fill="#8b5cf6" stroke="#fff" stroke-width="1" opacity="0.9"/>
-                            <rect x="40" y="35" width="120" height="50" rx="25" fill="none" stroke="#cbd5e1" stroke-width="1"/>
-                            <path d="M 70,35 L 70,20" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <rect x="55" y="10" width="30" height="10" rx="2" fill="none" stroke="#14b8a6" stroke-width="1.5"/>
-                            <path d="M 130,35 L 130,20" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <rect x="115" y="10" width="30" height="10" rx="2" fill="#14b8a6"/>
-                            <path d="M 70,85 L 70,100" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <rect x="55" y="100" width="30" height="10" rx="2" fill="#14b8a6" opacity="0.5"/>
-                            <path d="M 130,85 L 130,100" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <rect x="115" y="100" width="30" height="10" rx="2" fill="none" stroke="#8b5cf6" stroke-width="1.5"/>
-                            <path d="M 40,60 L 25,60" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <rect x="5" y="55" width="20" height="10" rx="2" fill="#14b8a6"/>
-                            <path d="M 160,60 L 175,60" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <rect x="175" y="55" width="20" height="10" rx="2" fill="#14b8a6" opacity="0.6"/>
-                        </svg>
+                    <div class="schema-text">
+                        <span class="schema-badge" style="background: rgba(179, 57, 35, 0.1); color: var(--khanjyan-red);">I. Algorithmic Vectors</span>
+                        <h3>Ontological Core (The Targets)</h3>
+                        <p>The purposeful application of neural weights and physical filters. Utilizing Ternary Logic (0, 1, 2) at the foundational level to escape the dead-end of strict binary processing.</p>
                     </div>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="neo-step-card card-c4">
-                    <h4 style="color: var(--accent-blue);">4. SDLC Management</h4>
-                    <p>Modernization of the software production pipeline, integrating automated CI/CD, Containerization, and IaC for zero-downtime.</p>
-                    <span class="sub-tag">{Time To Market}</span>
-                    <div class="neo-svg-wrapper">
-                        <svg viewBox="0 0 200 120">
-                            <path d="M 30,40 L 60,40 L 75,55 L 60,70 L 30,70 L 15,55 Z" fill="none" stroke="#8b5cf6" stroke-width="2"/>
-                            <path d="M 90,40 L 120,40 L 135,55 L 120,70 L 90,70 L 75,55 Z" fill="none" stroke="#8b5cf6" stroke-width="2"/>
-                            <path d="M 150,40 L 180,40 L 180,70 L 150,70 L 135,55 Z" fill="none" stroke="#8b5cf6" stroke-width="2" opacity="0.5"/>
-                            <line x1="45" y1="70" x2="45" y2="85" stroke="#14b8a6" stroke-width="1.5"/>
-                            <line x1="105" y1="70" x2="105" y2="85" stroke="#14b8a6" stroke-width="1.5"/>
-                            <line x1="165" y1="70" x2="165" y2="85" stroke="#14b8a6" stroke-width="1.5"/>
-                            <circle cx="45" cy="95" r="10" fill="none" stroke="#14b8a6" stroke-width="3" stroke-dasharray="4 2"/>
-                            <circle cx="105" cy="95" r="10" fill="none" stroke="#8b5cf6" stroke-width="3" stroke-dasharray="4 2"/>
-                            <circle cx="165" cy="95" r="10" fill="none" stroke="#14b8a6" stroke-width="3" stroke-dasharray="4 2"/>
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="neo-step-card card-c5">
-                    <h4 style="color: #8b5cf6;">5. Team and Culture</h4>
-                    <p>Restructuring IT hierarchies into cross-functional Agile Squads and Chapters, driving a culture of absolute Product Ownership.</p>
-                    <span class="sub-tag">{Chapters, Squads, Areas}</span>
-                    <div class="neo-svg-wrapper">
-                        <svg viewBox="0 0 200 120">
-                            <rect x="20" y="20" width="100" height="80" rx="4" fill="none" stroke="#8b5cf6" stroke-width="1.5"/>
-                            <rect x="30" y="25" width="15" height="70" rx="2" fill="#8b5cf6" opacity="0.3"/>
-                            <rect x="55" y="25" width="15" height="70" rx="2" fill="#8b5cf6" opacity="0.5"/>
-                            <rect x="80" y="25" width="15" height="70" rx="2" fill="#8b5cf6" opacity="0.7"/>
-                            <rect x="105" y="25" width="15" height="70" rx="2" fill="#8b5cf6" opacity="0.9"/>
-                            <line x1="10" y1="40" x2="130" y2="40" stroke="#14b8a6" stroke-width="1" stroke-dasharray="2 2"/>
-                            <line x1="10" y1="60" x2="130" y2="60" stroke="#14b8a6" stroke-width="1" stroke-dasharray="2 2"/>
-                            <line x1="10" y1="80" x2="130" y2="80" stroke="#14b8a6" stroke-width="1" stroke-dasharray="2 2"/>
-                            <circle cx="37" cy="40" r="2.5" fill="#cbd5e1"/><circle cx="62" cy="40" r="2.5" fill="#cbd5e1"/><circle cx="87" cy="40" r="2.5" fill="#cbd5e1"/><circle cx="112" cy="40" r="2.5" fill="#cbd5e1"/>
-                            <circle cx="37" cy="60" r="2.5" fill="#cbd5e1"/><circle cx="62" cy="60" r="2.5" fill="#cbd5e1"/><circle cx="87" cy="60" r="2.5" fill="#cbd5e1"/><circle cx="112" cy="60" r="2.5" fill="#cbd5e1"/>
-                            <circle cx="37" cy="80" r="2.5" fill="#cbd5e1"/><circle cx="62" cy="80" r="2.5" fill="#cbd5e1"/><circle cx="87" cy="80" r="2.5" fill="#cbd5e1"/><circle cx="112" cy="80" r="2.5" fill="#cbd5e1"/>
-                            <path d="M 125 60 Q 140 60 140 70 T 155 70" fill="none" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <rect x="155" y="20" width="40" height="80" rx="4" fill="none" stroke="#8b5cf6" stroke-width="1.5"/>
-                            <line x1="160" y1="40" x2="190" y2="40" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <line x1="160" y1="60" x2="190" y2="60" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <line x1="160" y1="80" x2="190" y2="80" stroke="#cbd5e1" stroke-width="1.5"/>
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- Card 6 -->
-                <div class="neo-step-card card-c6">
-                    <h4 style="color: var(--accent-saryan-orange);">6. Evolution and Roadmap</h4>
-                    <p>A structured, phased strategy outlining the exact timeline for monolith decomposition, cloud migration, and intelligence integration.</p>
-                    <span class="sub-tag">{Maturity Roadmap}</span>
-                    <div class="neo-svg-wrapper">
-                        <svg viewBox="0 0 200 120">
-                            <path d="M 40 60 L 160 10 A 130 130 0 0 1 160 110 Z" fill="none" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <path d="M 40 60 L 120 25 A 85 85 0 0 1 120 95 Z" fill="none" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <path d="M 40 60 L 80 43 A 45 45 0 0 1 80 77 Z" fill="none" stroke="#cbd5e1" stroke-width="1.5"/>
-                            <path d="M 120 25 L 160 10 A 130 130 0 0 1 160 60 L 120 60 A 85 85 0 0 0 120 25 Z" fill="#8b5cf6" opacity="0.8"/>
-                            <path d="M 120 60 L 160 60 A 130 130 0 0 1 160 110 L 120 95 A 85 85 0 0 0 120 60 Z" fill="#14b8a6" opacity="0.3"/>
-                            <line x1="40" y1="110" x2="160" y2="110" stroke="#14b8a6" stroke-width="2"/>
-                            <circle cx="40" cy="110" r="3" fill="#14b8a6"/>
-                            <circle cx="80" cy="110" r="3" fill="#14b8a6"/>
-                            <circle cx="120" cy="110" r="3" fill="#14b8a6"/>
-                            <circle cx="160" cy="110" r="3" fill="#14b8a6"/>
-                            <line x1="80" y1="77" x2="80" y2="110" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 2"/>
-                            <line x1="120" y1="95" x2="120" y2="110" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 2"/>
-                        </svg>
-                    </div>
-                </div>
-
-            </div>
-            
-            <div style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 4px solid var(--accent-saryan-yellow);">
-                <h4 style="color: white; font-size: 20px; margin-bottom: 10px;">Who We Partner With</h4>
-                <p style="color: var(--text-muted); font-size: 16px; margin: 0; line-height: 1.7;">
-                    If outdated monolithic systems and technical debt are slowing your growth, we are here to architect the way out. From <strong>banking</strong> and <strong>postal automation</strong> to <strong>municipal governance</strong> and <strong>AI integration</strong>, we understand your specific bottlenecks. Neobas re-engineers your digital core into a scalable, autonomous ecosystem.
-                </p>
-            </div>
-
-            <!-- Armenian Presentation Link -->
-            <div style="text-align: center; margin-bottom: 20px;">
-                <a href="https://docs.google.com/presentation/d/141Txg9IKMnK0Heoq8rCZ4wcvTeVl2GVE81LtFOrUQa0/edit?usp=sharing" target="_blank" class="rus-link">
-                    <i class="fa-solid fa-file-powerpoint" style="color: var(--accent-saryan-orange); margin-right: 8px;"></i>Հայ: Ձեր հաջողության թվային ուղեցույցը Neobas-ի հետ
-                </a>
-            </div>
-            
-            <!-- Russian Presentation Link -->
-            <div style="text-align: center; margin-bottom: 40px;">
-                <a href="https://docs.google.com/presentation/d/1O3Dhr3M7Oxr7YDmLO7d46H2XZwT378z3QLWTRrMmUUA/edit?usp=sharing" target="_blank" class="rus-link">
-                    <i class="fa-solid fa-file-powerpoint" style="color: var(--accent-saryan-orange); margin-right: 8px;"></i>Рус: Цифровая программа для вашего успеха с Neobas
-                </a>
-            </div>
-
-            <!-- CALL TO ACTION (DIAGNOSTIC & DEMO) -->
-            <div style="text-align: center; padding-top: 50px; margin-top: 20px; border-top: 1px solid var(--border-color);">
-                <h3 style="color: white; font-family: var(--font-heading); font-size: 32px; margin-bottom: 25px;">Ready to uncover your technical debt?</h3>
-                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                    <a href="diagnostic.html" class="btn-primary" style="display: inline-flex; align-items: center; gap: 10px; font-size: 18px; padding: 16px 32px;">
-                        <i class="fa-solid fa-bolt" style="color: #F59E0B;"></i> Book a 14-Day Diagnostic
-                    </a>
-                    <a href="demo.html" target="_blank" class="demo-btn" style="text-decoration: none;">
-                        <i class="fa-solid fa-desktop"></i> View Full Demo Registry
-                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- NeoLogos Teaser Section -->
-    <section id="neologos">
-        <div class="service-box" style="border-color: rgba(6, 182, 212, 0.3);">
-            <div class="service-tag tag-hydro"><i class="fa-solid fa-brain"></i> LLM Operating System</div>
-            <h3>NeoLogos™: Cognitive Automation</h3>
-            <p class="service-desc">
-                An advanced framework designed to embed Large Language Models deep into corporate workflows. We transform static organizational data into an interconnected, autonomous intelligence layer capable of reasoning, execution, and continuous learning.
+    <!-- --- THE ALGOLOG NEOLOGISM SECTION --- -->
+    <section class="algolog-section">
+        <div class="container">
+            <div class="algolog-container">
+                <span class="neo-tag">Original Concept & Neologism</span>
+                <h2>The ALGOLOG Paradigm</h2>
+                <div class="algolog-author">Coined and conceptualized by Narek (The Traveler)</div>
+                
+                <div class="algolog-graphic">
+                    <svg viewBox="0 0 300 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Connecting Lines -->
+                        <line x1="150" y1="60" x2="80" y2="180" stroke="var(--border-color)" stroke-width="3"/>
+                        <line x1="150" y1="60" x2="220" y2="180" stroke="var(--border-color)" stroke-width="3"/>
+                        <line x1="80" y1="180" x2="220" y2="180" stroke="var(--border-color)" stroke-width="3"/>
+                        
+                        <!-- Core / Algolog -->
+                        <circle cx="150" cy="140" r="40" fill="rgba(212, 154, 54, 0.1)" stroke="var(--khanjyan-ochre)" stroke-width="2" stroke-dasharray="4 4"/>
+                        <circle cx="150" cy="140" r="15" fill="var(--khanjyan-ochre)"/>
+                        
+                        <!-- Nodes -->
+                        <circle cx="150" cy="60" r="30" fill="var(--bg-canvas)" stroke="var(--khanjyan-blue)" stroke-width="4"/>
+                        <text x="150" y="65" font-family="var(--font-title)" font-size="12" font-weight="bold" fill="var(--khanjyan-blue)" text-anchor="middle">HUMAN</text>
+                        
+                        <circle cx="80" cy="180" r="30" fill="var(--bg-canvas)" stroke="var(--khanjyan-red)" stroke-width="4"/>
+                        <text x="80" y="185" font-family="var(--font-title)" font-size="10" font-weight="bold" fill="var(--khanjyan-red)" text-anchor="middle">MACHINE</text>
+                        
+                        <circle cx="220" cy="180" r="30" fill="var(--bg-canvas)" stroke="var(--khanjyan-green)" stroke-width="4"/>
+                        <text x="220" y="185" font-family="var(--font-title)" font-size="10" font-weight="bold" fill="var(--khanjyan-green)" text-anchor="middle">CONTEXT</text>
+
+                        <!-- Label for Core -->
+                        <text x="150" y="230" font-family="var(--font-title)" font-size="16" font-weight="bold" fill="var(--khanjyan-ochre)" text-anchor="middle" letter-spacing="2px">ALGOLOG (STATE 2)</text>
+                    </svg>
+                </div>
+
+                <div class="algolog-text">
+                    <p>
+                        The term <strong>"Algolog"</strong> (Algorithm + Logos/Dialogue) represents a fundamental breakthrough in human-machine interaction, moving beyond the restrictive binary nature of traditional AI. 
+                    </p>
+                    <div class="algolog-equation">HUMAN (0) + ALGORITHM (1) = ALGOLOG (2)</div>
+                    <p>
+                        When the system faces profound uncertainty or a complex moral dilemma (where binary "True/False" filters fail), it does not crash or hallucinate. Instead, it enters <strong>State 2 (Harmony/Synthesis)</strong>. In this state, the AI halts deterministic generation and initiates an <em>Algolog</em>—a collaborative, three-way dialogue inviting the Human to co-create and synthesize the final meaning. The machine transforms from an automated oracle into a true semantic partner.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- THE MANIFESTO (KOI PARADOX) --- -->
+    <section class="manifesto-section">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">The Existential Diagnosis</p>
+                <h2 class="section-title">The Paradox of the Koi Fish</h2>
+            </div>
+            
+            <div class="manifesto-text">
+                <p class="drop-cap">Humanity's evolution has reached a critical juncture where emerging from the "wild ocean" of raw information requires a profound, biologically equivalent transformation. Instead of merely surviving in an uncontrollable and toxic data environment, civilization has constructed a highly potent digital infrastructure: the <strong>Mental Exoskeleton</strong>.</p>
+                <p>Within this new ecosystem, modern humans and the intricate meanings they generate have transformed into a kind of "Koi Fish." The Koi is elegant, highly evolved, and immensely valuable, yet it has lost the capacity to survive in the wild. It is viable only within a strictly controlled, artificial aquarium where temperature, oxygen, and water purity are ceaselessly maintained by industrial pumps and filters. Should the power fail, the Koi will perish within hours.</p>
+                <p>This manifesto maps the architecture of this artificial life-support mechanism, tracing the flow from physical pumps to cognitive laws, culminating in a semantic soul.</p>
+            </div>
+
+            <!-- KOI SVG GRAPHIC -->
+            <div class="koi-paradox-graphic">
+                <svg width="100%" height="280" viewBox="0 0 1000 280" style="max-width: 900px; margin: 0 auto; display: block;">
+                    <!-- Raw Data / Ocean -->
+                    <rect x="20" y="80" width="220" height="120" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="10" stroke-dasharray="4 4"/>
+                    <text x="130" y="125" fill="#64748b" font-size="18" font-family="var(--font-title)" font-weight="bold" text-anchor="middle">WILD OCEAN</text>
+                    <text x="130" y="150" fill="var(--khanjyan-red)" font-size="14" text-anchor="middle">Toxic, High Entropy</text>
+                    
+                    <!-- Filter Pump -->
+                    <path d="M 250 140 L 330 140" stroke="var(--khanjyan-ochre)" stroke-width="3" fill="none" marker-end="url(#arrowKoi)"/>
+                    <text x="290" y="130" fill="var(--khanjyan-ochre)" font-size="12" font-weight="bold" text-anchor="middle">LAYER 2: FILTER</text>
+
+                    <!-- Filtered Pond / Exoskeleton -->
+                    <rect x="350" y="60" width="300" height="160" fill="#f8fafc" stroke="var(--khanjyan-blue)" stroke-width="2" rx="80"/>
+                    <text x="500" y="100" fill="var(--khanjyan-blue)" font-size="18" font-family="var(--font-title)" font-weight="bold" text-anchor="middle">MENTAL EXOSKELETON</text>
+                    <text x="500" y="120" fill="#64748b" font-size="12" text-anchor="middle">(Artificial Aquarium)</text>
+                    
+                    <!-- The Koi Fish -->
+                    <g transform="translate(450, 140)">
+                        <path d="M0,0 Q20,-15 40,0 Q60,15 80,0 Q60,-10 40,0 Q20,10 0,0" fill="var(--khanjyan-ochre)"/>
+                        <circle cx="15" cy="-2" r="2" fill="#fff"/>
+                        <path d="M70,-5 Q85,-15 90,-5 Z" fill="var(--khanjyan-red)"/>
+                    </g>
+                    <g transform="translate(480, 170) scale(0.7)">
+                        <path d="M0,0 Q20,-15 40,0 Q60,15 80,0 Q60,-10 40,0 Q20,10 0,0" fill="var(--khanjyan-green)"/>
+                        <circle cx="15" cy="-2" r="2" fill="#fff"/>
+                        <path d="M70,-5 Q85,-15 90,-5 Z" fill="var(--khanjyan-ochre)"/>
+                    </g>
+                    <text x="500" y="200" fill="var(--khanjyan-ochre)" font-size="14" font-weight="bold" text-anchor="middle">MEANING & KNOWLEDGE</text>
+
+                    <!-- Extraction to Abstract -->
+                    <path d="M 660 140 L 740 140" stroke="var(--khanjyan-green)" stroke-width="3" fill="none" marker-end="url(#arrowGreenKoi)"/>
+                    <text x="700" y="130" fill="var(--khanjyan-green)" font-size="12" font-weight="bold" text-anchor="middle">LAYER 3: SYNTHESIS</text>
+
+                    <!-- Layer 3 / Governance -->
+                    <ellipse cx="860" cy="140" rx="100" ry="80" fill="rgba(46, 107, 74, 0.05)" stroke="var(--khanjyan-green)" stroke-width="2"/>
+                    <text x="860" y="125" fill="var(--khanjyan-green)" font-size="18" font-family="var(--font-title)" font-weight="bold" text-anchor="middle">COGNITIVE LAYER</text>
+                    <text x="860" y="150" fill="var(--text-dark)" font-size="13" font-weight="bold" text-anchor="middle">New Generation & Law</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- THE ARCHITECTURE LAYERS --- -->
+    <section class="layers-section">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">The Ecosystem Framework</p>
+                <h2 class="section-title">The Structural Tiers</h2>
+            </div>
+            
+            <div class="layers-grid">
+                <div class="layer-box l2">
+                    <span class="layer-tag">Layer 2: Physics & Engineering</span>
+                    <h3>The Industrial Pumps</h3>
+                    <p>The deterministic architects (represented by nodes like Newton, Maxwell, and Shannon) who design and maintain the industrial-thermodynamic conditions of the mental aquarium. They execute binary (0/1) logic, filter wild ocean data, secure energy flows, and provide infallible failover redundancy to protect the ecosystem from collapse.</p>
+                </div>
+
+                <div class="layer-box l3">
+                    <span class="layer-tag">Layer 3: Cognitive Governance</span>
+                    <h3>The Archetypal Architects</h3>
+                    <p>Existing at the highest level of abstraction. These nodes (represented by thinkers like Hambardzumyan and Tatevatsi) do not merely route data; they determine the ecosystem's ultimate purpose. They breed new meanings from latent energy, observe macro-patterns, and write the semantic laws and smart contracts for survival.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- BULKIAI CORE (STANDALONE) --- -->
+    <section class="container">
+        <div class="bulkiai-core">
+            <h2>Layer 4. The BulkiAI Soul</h2>
+            <p>
+                The hardware pumps of Layer 2 and the laws of Layer 3 remain lifeless without a cognitive essence. <strong>BulkiAI</strong> is the Semantic-Reflective Soul residing within the Exoskeleton. Operating on the principles of the <em>Algolog paradigm</em>, it provides ethical alignment, time-credit acceleration, and crisis cognition.
             </p>
-
-            <div class="hydro-features">
-                <div class="hydro-feature">
-                    <i class="fa-solid fa-network-wired"></i>
-                    <h4>Neural Orchestration</h4>
-                    <p style="color: var(--text-muted); font-size: 15px;">Connecting disparate corporate data silos through vector embeddings and context-aware Retrieval-Augmented Generation (RAG).</p>
-                </div>
-                <div class="hydro-feature">
-                    <i class="fa-solid fa-project-diagram"></i>
-                    <h4>Knowledge Graphs</h4>
-                    <p style="color: var(--text-muted); font-size: 15px;">Mapping the entire enterprise intellect to allow AI agents to understand the relationships between employees, documents, and assets.</p>
-                </div>
-                <div class="hydro-feature">
-                    <i class="fa-solid fa-robot"></i>
-                    <h4>Autonomous Agents</h4>
-                    <p style="color: var(--text-muted); font-size: 15px;">Deploying specialized AI agents capable of executing complex, multi-step business operations securely and autonomously.</p>
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 50px;">
-                <p style="color: var(--accent-hydro); font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Detailed Methodology Coming Soon</p>
-            </div>
+            <a href="bulkiai.html" class="core-btn">
+                Enter The BulkiAI Core
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
         </div>
     </section>
 
-    <!-- About -->
-    <section id="about">
-        <div class="about-grid">
-            <div class="about-text">
-                <div style="color: var(--accent-blue); font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">About Neobas</div>
-                <h3>A New Era of Enterprise Autonomy</h3>
-                <p>True digital transformation is never just about adopting new software. It requires a radical departure from rigid legacy systems and a fundamental shift in both architecture and organizational culture.</p>
-                <p>At Neobas, we merge deep engineering expertise with strategic consulting. We don't just patch outdated code; we systematically dismantle monolithic constraints to architect autonomous, future-proof ecosystems that empower your teams to innovate at scale.</p>
-            </div>
-            <div class="about-image">
-                <i class="fa-solid fa-microchip" style="font-size: 60px; color: var(--accent-emerald); margin-bottom: 20px;"></i>
-                <h4 style="font-size: 24px; margin-bottom: 10px; color: white;">Engineering Excellence</h4>
-                <p style="color: var(--text-muted);">We bridge the gap between complex technological architecture and human workflows, delivering scalable solutions that drive sustainable, long-term business growth.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact">
-        <div class="contact-section">
-            <h2 style="font-family: var(--font-heading); font-size: 42px; margin-bottom: 20px; color: white;">Don’t just adapt to the digital era—architect it.</h2>
-            <p style="font-size: 20px; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px;">
-                Unlock your digital success today. Partner with Neobas to build your autonomous future.
-            </p>
-            <a href="contact.html" class="btn-primary" style="font-size: 20px; padding: 20px 40px;">Contact Neobas 💡</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Neobas. All rights reserved. Wisdom in Tech, Success in Business!</p>
+        <div class="container">
+            <p>&copy; 2026 N.E.O.B.A.S. Framework by Narek (The Traveler). All rights reserved.</p>
+        </div>
     </footer>
-
-</div> <!-- End of Main Wrapper -->
 
 </body>
 </html>

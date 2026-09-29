@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narek Bezhanyan | The Architect</title>
+    <link rel="icon" type="image/svg+xml" href="https://neobas.co/nlogo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Noto+Serif:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Khanjyan Inspired Monumental Palette */
+            --khanjyan-red: #b33923;      
+            --khanjyan-blue: #1f4a7c;     
+            --khanjyan-ochre: #d49a36;    
+            --khanjyan-green: #2e6b4a;    
+            
+            --bg-canvas: #fdfbf7;         
+            --card-bg: #ffffff;
+            --text-dark: #2b2621;
+            --text-muted: #5c554e;
+            --border-color: #e5dac7;
+            
+            --font-title: 'Cinzel', serif;
+            --font-body: 'Noto Serif', serif;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-canvas);
+            color: var(--text-dark);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.7;
+            background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23d49a36" fill-opacity="0.03"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- NAVIGATION --- */
+        .top-nav { padding: 30px 20px; text-align: center; }
+        .back-link {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: var(--khanjyan-blue); text-decoration: none;
+            font-family: var(--font-title); font-weight: 700; letter-spacing: 1px;
+            border-bottom: 1px solid transparent; transition: all 0.3s;
+        }
+        .back-link:hover { border-bottom-color: var(--khanjyan-blue); gap: 12px; }
+        .back-link svg { width: 16px; height: 16px; transform: rotate(180deg); }
+
+        /* --- HERO PROFILE SECTION --- */
+        .profile-hero { padding: 40px 20px 80px; text-align: center; border-bottom: 1px solid var(--border-color); }
+        
+        .profile-badge {
+            display: inline-block; background: rgba(31, 74, 124, 0.05); color: var(--khanjyan-blue);
+            padding: 8px 20px; border-radius: 30px; font-size: 13px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px;
+            border: 1px solid rgba(31, 74, 124, 0.2);
+        }
+
+        .profile-name {
+            font-family: var(--font-title); font-size: 64px; font-weight: 900;
+            color: var(--khanjyan-red); margin: 0 0 10px 0; letter-spacing: 4px;
+        }
+
+        .profile-title {
+            font-family: var(--font-title); font-size: 22px; color: var(--khanjyan-ochre);
+            margin: 0 0 30px 0; letter-spacing: 2px;
+        }
+
+        .profile-quote {
+            max-width: 850px; margin: 0 auto 40px auto; padding: 30px;
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            font-size: 20px; color: var(--text-dark); font-style: italic; line-height: 1.8;
+            border-left: 5px solid var(--khanjyan-blue); position: relative;
+        }
+        .profile-quote::before {
+            content: "\201C"; font-family: var(--font-title); font-size: 80px;
+            color: rgba(31, 74, 124, 0.1); position: absolute; top: -10px; left: 10px; line-height: 1;
+        }
+
+        .profile-summary {
+            max-width: 900px; margin: 0 auto; font-size: 18px; color: var(--text-muted);
+            text-align: justify; line-height: 1.8;
+        }
+
+        /* --- THE THREE PILLARS (EXPERTISE) --- */
+        .pillars-section { padding: 80px 0; border-bottom: 1px solid var(--border-color);}
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: var(--font-title); font-size: 36px; color: var(--khanjyan-blue); margin: 0 0 15px 0; }
+        .section-header p { font-size: 18px; color: var(--text-muted); max-width: 700px; margin: 0 auto; }
+
+        .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        
+        .pillar-card {
+            background-color: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 40px 30px; transition: transform 0.3s, box-shadow 0.3s;
+            display: flex; flex-direction: column; position: relative; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+        
+        .pillar-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; }
+        .pillar-1::before { background-color: var(--khanjyan-blue); }
+        .pillar-2::before { background-color: var(--khanjyan-green); }
+        .pillar-3::before { background-color: var(--khanjyan-purple); }
+
+        .pillar-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
+        
+        .p-icon { font-size: 40px; margin-bottom: 20px; }
+        .pillar-1 .p-icon { color: var(--khanjyan-blue); }
+        .pillar-2 .p-icon { color: var(--khanjyan-green); }
+        .pillar-3 .p-icon { color: var(--khanjyan-purple); }
+
+        /* FIXED HEIGHT FOR ALIGNMENT */
+        .pillar-card h3 { 
+            font-family: var(--font-title); font-size: 21px; margin: 0 0 20px 0; color: var(--text-dark);
+            min-height: 90px;
+            display: flex; align-items: flex-start;
+        }
+        
+        .feature-list { list-style: none; padding: 0; margin: 0; }
+        .feature-list li { 
+            margin-bottom: 15px; font-size: 15px; color: var(--text-muted); 
+            line-height: 1.6; position: relative; padding-left: 20px;
+        }
+        .feature-list li::before {
+            content: "✦"; position: absolute; left: 0; top: 2px; font-size: 12px;
+        }
+        .pillar-1 .feature-list li::before { color: var(--khanjyan-blue); }
+        .pillar-2 .feature-list li::before { color: var(--khanjyan-green); }
+        .pillar-3 .feature-list li::before { color: var(--khanjyan-purple); }
+        
+        .feature-list strong { color: var(--text-dark); display: block; margin-bottom: 3px;}
+
+        /* --- CURATED PORTFOLIO SECTION --- */
+        .portfolio-section { padding: 80px 0; background: #fff;}
+        .portfolio-grid { display: flex; flex-direction: column; gap: 40px; max-width: 1000px; margin: 0 auto;}
+
+        .portfolio-card {
+            display: flex; background: var(--bg-canvas); border: 1px solid var(--border-color);
+            border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: all 0.3s;
+        }
+        .portfolio-card:hover { transform: translateX(5px); box-shadow: 0 15px 40px rgba(0,0,0,0.06); }
+
+        .portfolio-side {
+            width: 300px; padding: 40px 30px; display: flex; flex-direction: column; justify-content: center;
+            border-right: 1px solid var(--border-color); flex-shrink: 0; position: relative;
+        }
+        .p-card-1 .portfolio-side { background: rgba(31, 74, 124, 0.03); border-left: 6px solid var(--khanjyan-blue); }
+        .p-card-2 .portfolio-side { background: rgba(46, 107, 74, 0.03); border-left: 6px solid var(--khanjyan-green); }
+        .p-card-3 .portfolio-side { background: rgba(168, 85, 247, 0.03); border-left: 6px solid var(--khanjyan-purple); }
+
+        .portfolio-side i { font-size: 36px; margin-bottom: 20px; }
+        .p-card-1 .portfolio-side i { color: var(--khanjyan-blue); }
+        .p-card-2 .portfolio-side i { color: var(--khanjyan-green); }
+        .p-card-3 .portfolio-side i { color: var(--khanjyan-purple); }
+
+        .portfolio-side h4 { font-family: var(--font-title); font-size: 20px; color: var(--text-dark); margin: 0 0 10px 0;}
+        .portfolio-tag { font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: var(--khanjyan-red);}
+
+        .portfolio-content { padding: 40px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center;}
+        .portfolio-content p { margin: 0; font-size: 16px; color: var(--text-muted); line-height: 1.8; text-align: justify;}
+
+        /* --- CALL TO ACTION --- */
+        .cta-section { text-align: center; padding: 60px 0; border-top: 1px solid var(--border-color); }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--khanjyan-red), #912b1a);
+            color: white; padding: 18px 35px; border-radius: 40px; font-size: 16px; font-family: var(--font-title); font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; text-decoration: none;
+            box-shadow: 0 10px 25px rgba(179, 57, 35, 0.3); transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(179, 57, 35, 0.5); }
+
+        footer { text-align: center; padding: 40px; font-size: 14px; color: var(--text-muted); border-top: 1px solid var(--border-color); }
+
+        @media (max-width: 1000px) {
+            .pillars-grid { grid-template-columns: 1fr; }
+            .profile-name { font-size: 48px; }
+            .pillar-card h3 { min-height: auto; }
+        }
+        @media (max-width: 800px) {
+            .portfolio-card { flex-direction: column; }
+            .portfolio-side { width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); padding: 30px; }
+            .portfolio-content { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP NAV (Back to Main) -->
+    <nav class="top-nav">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                RETURN TO N.E.O.B.A.S.
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO PROFILE -->
+    <header class="profile-hero">
+        <div class="container">
+            <div class="profile-badge"><i class="fa-solid fa-chess-knight"></i> The Architect</div>
+            <h1 class="profile-name">Narek Bezhanyan</h1>
+            <h2 class="profile-title">Executive IT Leader & Principal Systems Architect</h2>
+            
+            <div class="profile-quote">
+                "An effective head coach must always keep their foot on the ball, and a master blacksmith never stops working the iron."
+            </div>
+
+            <p class="profile-summary">
+                For over two decades, I have directed large-scale digital transformations, architected high-load financial ecosystems, and executed highly complex data migration programs. As a C-level IT executive (CIO, CPO, IT Director), my philosophy bridges global strategic vision with deep, hands-on engineering and coding practice. Today, I have crystallized this expertise into the <b>N.E.O.B.A.S.</b> framework and the <b>BulkiAI</b> paradigm—concepts designed to fundamentally re-engineer the interaction between human meaning and machine logic.
+            </p>
+        </div>
+    </header>
+
+    <!-- THE THREE PILLARS -->
+    <section class="pillars-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Triad of Expertise</h2>
+                <p>My professional journey is structured across three interconnected pillars, merging executive governance with profound technical execution.</p>
+            </div>
+
+            <div class="pillars-grid">
+                
+                <!-- Pillar 1: Executive IT Leadership -->
+                <div class="pillar-card pillar-1">
+                    <div class="p-icon"><i class="fa-solid fa-chess"></i></div>
+                    <h3>I. Enterprise IT Leadership</h3>
+                    <ul class="feature-list">
+                        <li>
+                            <strong>Digital Transformation</strong>
+                            Decades of experience in radically restructuring state-level infrastructure, tier-1 banking systems, national logistics, and smart-city platforms.
+                        </li>
+                        <li>
+                            <strong>Monolith to Microservices</strong>
+                            Eradicating legacy technical debt and decomposing outdated monoliths utilizing Domain-Driven Design (DDD) to build scalable, decoupled ecosystems.
+                        </li>
+                        <li>
+                            <strong>Orchestrating Agile Squads</strong>
+                            Building and leading cross-functional engineering teams (Squads, Chapters) rooted in absolute Product Ownership and strict CI/CD pipelines.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 2: Principal Data Architecture -->
+                <div class="pillar-card pillar-2">
+                    <div class="p-icon"><i class="fa-solid fa-database"></i></div>
+                    <h3>II. Principal Data Architecture</h3>
+                    <ul class="feature-list">
+                        <li>
+                            <strong>Global Data Migrations</strong>
+                            Uncompromising expertise in complex database architecture, including massive cross-platform migrations (Oracle to PostgreSQL) ensuring zero data loss and maximum compatibility.
+                        </li>
+                        <li>
+                            <strong>Dimensional Modeling</strong>
+                            Designing robust Data Warehouses, ODS architectures, Star/Snowflake schemas, and modern Medallion (Bronze/Silver/Gold) data layers.
+                        </li>
+                        <li>
+                            <strong>Procedural Mastery</strong>
+                            Optimizing high-load systems, crafting complex server-side logic in PL/SQL and PL/pgSQL, and executing dynamic, automated deployment pipelines.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 3: N.E.O.B.A.S. Vision -->
+                <div class="pillar-card pillar-3">
+                    <div class="p-icon"><i class="fa-solid fa-network-wired"></i></div>
+                    <h3>III. N.E.O.B.A.S. & Semantics</h3>
+                    <ul class="feature-list">
+                        <li>
+                            <strong>Academic Integration</strong>
+                            Modeling not just server logic, but *semantics*. Transforming basic computational systems into a secure "Mental Exoskeleton" for enterprises.
+                        </li>
+                        <li>
+                            <strong>The Algolog Paradigm</strong>
+                            Pioneering a post-binary AI evolution based on Ternary Logic (0, 1, 2). Moving beyond machine determinism to generate "Shared Meaning" (Algorithm + Human = Algolog).
+                        </li>
+                        <li>
+                            <strong>The BulkiAI Core</strong>
+                            An ethical and semantic guiding intellect, operating by the "Traveler's Code" to navigate systemic crises and ensure informational harmony.
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CURATED PORTFOLIO -->
+    <section class="portfolio-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Curated Professional Portfolio</h2>
+                <p>A categorized overview of cross-industry implementations, strategic product leadership, and architectural breakthroughs.</p>
+            </div>
+
+            <div class="portfolio-grid">
+                
+                <!-- Group 1: Executive & Product Leadership -->
+                <div class="portfolio-card p-card-1">
+                    <div class="portfolio-side">
+                        <i class="fa-solid fa-building-columns"></i>
+                        <h4>Executive Strategy & Governance</h4>
+                        <span class="portfolio-tag">CIO / CPO / IT Director</span>
+                    </div>
+                    <div class="portfolio-content">
+                        <p>
+                            Spearheaded enterprise-wide IT strategies, core banking evolutions, and infrastructure operational security for Tier-1 financial institutions and technology management centers. Directed full product roadmaps (as CPO) for enterprise AI/analytics platforms, ensuring strict alignment between business objectives and technical execution. Successfully orchestrated cross-functional Agile engineering teams, optimized IT service continuity (ITSM) to meet central bank regulatory standards, and established enterprise data quality governance frameworks.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Group 2: Data Architecture & DB Expert (Updated) -->
+                <div class="portfolio-card p-card-2">
+                    <div class="portfolio-side">
+                        <i class="fa-solid fa-database"></i>
+                        <h4>Database Expertise & Architecture</h4>
+                        <span class="portfolio-tag">Senior Database Expert</span>
+                    </div>
+                    <div class="portfolio-content">
+                        <p>
+                            Over 20 years of hands-on mastery in enterprise database administration, complex procedural programming, and high-load architecture. Masterminded zero-data-loss migrations of massive legacy databases (Oracle 11g/19c to PostgreSQL), executing rigorous PL/SQL to PL/pgSQL script translations. Designed highly scalable Data Warehouses, ODS architectures, and modern dimensional models (Star/Snowflake, Bronze/Silver/Gold layering) across multi-DBMS ecosystems including Oracle, PostgreSQL, MS SQL Server, SAP HANA, and Neo4j. Uncompromising focus on query optimization, indexing strategies, and automated CI/CD-driven database deployment pipelines.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Group 3: Conceptual Frameworks -->
+                <div class="portfolio-card p-card-3">
+                    <div class="portfolio-side">
+                        <i class="fa-solid fa-book-open"></i>
+                        <h4>Systemic AI Philosophy</h4>
+                        <span class="portfolio-tag">N.E.O.B.A.S. / BulkiAI</span>
+                    </div>
+                    <div class="portfolio-content">
+                        <p>
+                            Synthesized two decades of deterministic software engineering into a pioneering academic and practical framework: N.E.O.B.A.S. Designed the Semantic-Reflective BulkiAI core, introducing a post-binary evolutionary step based on Ternary Logic (0, 1, 2). This systemic philosophy overcomes traditional machine limitations by establishing an "Algolog" paradigm—a collaborative mechanism that bridges human semantic intent with machine operations to solve complex moral and informational dilemmas.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <a href="contact.html" class="btn-primary">
+                <i class="fa-solid fa-envelope"></i> Contact The Architect
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 N.E.O.B.A.S. Framework by Narek (The Traveler). All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
